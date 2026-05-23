@@ -1,0 +1,1282 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agency-Ready Portal | AI Resume & Portfolio Reviewer</title>
+  <!-- SEO & Meta Tags -->
+  <meta name="description" content="AI-driven resume and portfolio screening portal. Empowering university students to achieve elite industry standards and helping course convenors monitor submissions.">
+  <meta name="keywords" content="AI Resume Vetting, Portfolio Screening, Course Convenor Review, Portfolio Verification, Top 20% Elite">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Canvas Confetti CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            heading: ['Outfit', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#eef2ff',
+              100: '#e0e7ff',
+              200: '#c7d2fe',
+              300: '#a5b4fc',
+              400: '#818cf8',
+              500: '#6366f1',
+              600: '#4f46e5',
+              700: '#4338ca',
+              800: '#3730a3',
+              900: '#312e81',
+              accent: '#f43f5e',
+              gold: '#fbbf24',
+              emerald: '#10b981',
+              darkbg: '#0b0f19',
+              cardbg: '#161d30',
+              border: '#2a3554'
+            }
+          },
+          animation: {
+            'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            'float': 'float 6s ease-in-out infinite',
+            'spin-slow': 'spin 8s linear infinite',
+            'glow-pulse': 'glow 2s ease-in-out infinite',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-10px)' },
+            },
+            glow: {
+              '0%, 100%': { boxShadow: '0 0 15px rgba(99, 102, 241, 0.2)' },
+              '50%': { boxShadow: '0 0 25px rgba(99, 102, 241, 0.6)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style type="text/css">
+    /* Premium custom styling and glassmorphism overrides */
+    body {
+      background: radial-gradient(circle at 10% 20%, rgba(15, 23, 42, 0.98) 0%, rgba(9, 13, 26, 1) 100%);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    
+    .glass-card {
+      background: rgba(22, 29, 48, 0.65);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .glass-card-accent {
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.15) 0%, rgba(244, 63, 94, 0.05) 100%);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(99, 102, 241, 0.2);
+    }
+
+    .glass-gold-card {
+      background: linear-gradient(135deg, rgba(251, 191, 36, 0.12) 0%, rgba(22, 29, 48, 0.8) 100%);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(251, 191, 36, 0.25);
+    }
+
+    /* Glow scrollbars */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: rgba(11, 15, 25, 0.5);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(99, 102, 241, 0.3);
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(99, 102, 241, 0.6);
+    }
+
+    /* Neural Scanner Animation */
+    .scanning-line {
+      animation: scan 2s linear infinite;
+    }
+
+    @keyframes scan {
+      0% { top: 0%; opacity: 0; }
+      10% { opacity: 1; }
+      90% { opacity: 1; }
+      100% { top: 100%; opacity: 0; }
+    }
+
+    .hologram-seal {
+      position: relative;
+      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+      border: 2px solid #fbbf24;
+      box-shadow: 0 0 20px rgba(251, 191, 36, 0.3), inset 0 0 15px rgba(251, 191, 36, 0.1);
+      animation: float 4s ease-in-out infinite;
+    }
+
+    .hologram-seal::before {
+      content: '';
+      position: absolute;
+      top: -2px; left: -2px; right: -2px; bottom: -2px;
+      background: linear-gradient(45deg, transparent, rgba(251, 191, 36, 0.6), transparent);
+      z-index: -1;
+      border-radius: inherit;
+      filter: blur(8px);
+    }
+
+    /* Tab transitions */
+    .view-container {
+      transition: all 0.30s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .role-badge {
+      text-shadow: 0 0 10px currentColor;
+    }
+  </style>
+</head>
+<body class="min-h-screen text-slate-100 flex flex-col justify-between overflow-x-hidden">
+
+  <!-- Dynamic Header Bar -->
+  <header class="border-b border-brand-border bg-brand-darkbg/85 backdrop-blur-md sticky top-0 z-40 px-6 py-4 flex items-center justify-between">
+    <div class="flex items-center space-x-3">
+      <div class="h-10 w-10 rounded-xl bg-gradient-to-tr from-brand-600 to-brand-accent flex items-center justify-center shadow-lg shadow-brand-500/20">
+        <i class="fa-solid fa-graduation-cap text-white text-lg"></i>
+      </div>
+      <div>
+        <h1 class="text-xl font-bold tracking-tight font-heading bg-gradient-to-r from-white via-indigo-200 to-brand-400 bg-clip-text text-transparent">Agency-Ready Portal</h1>
+        <p class="text-xs text-slate-400 font-medium">Next-Gen AI Portfolio Vetting</p>
+      </div>
+    </div>
+
+    <!-- Active User Role Selector (Hardcoded Roles for UX Flow Demonstration) -->
+    <div class="flex items-center space-x-3 bg-slate-900/90 rounded-xl p-1.5 border border-slate-800">
+      <span class="text-xs text-slate-400 font-medium px-2.5">Acting As:</span>
+      <button onclick="switchRole('student')" id="roleBtn-student" class="role-btn px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center space-x-1.5 transition-all duration-200 bg-brand-600 text-white shadow-sm shadow-brand-500/10">
+        <i class="fa-solid fa-user-graduate"></i>
+        <span>Student</span>
+      </button>
+      <button onclick="switchRole('admin')" id="roleBtn-admin" class="role-btn px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center space-x-1.5 transition-all duration-200 text-slate-400 hover:text-slate-200 hover:bg-slate-800">
+        <i class="fa-solid fa-chalkboard-user"></i>
+        <span>Course Convenor</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <div class="flex-1 flex max-w-[1600px] w-full mx-auto">
+    
+    <!-- Sidebar Navigation -->
+    <aside class="w-64 border-r border-brand-border bg-brand-darkbg/40 p-5 shrink-0 hidden md:block flex flex-col justify-between">
+      <div class="space-y-6">
+        <div class="text-xs font-bold tracking-wider text-slate-500 uppercase px-3">Main Navigation</div>
+        <nav class="space-y-1.5">
+          <button onclick="switchView('student-workspace')" id="nav-student-workspace" class="nav-btn w-full px-4 py-3 rounded-xl text-sm font-medium flex items-center space-x-3 transition-all duration-200 bg-brand-600/15 border-l-2 border-brand-500 text-brand-300">
+            <i class="fa-solid fa-laptop-code text-base"></i>
+            <span>Student Workspace</span>
+          </button>
+          <button onclick="switchView('convenor-portal')" id="nav-convenor-portal" class="nav-btn w-full px-4 py-3 rounded-xl text-sm font-medium flex items-center space-x-3 transition-all duration-200 text-slate-400 hover:bg-slate-800/40 hover:text-slate-200 border-l-2 border-transparent">
+            <i class="fa-solid fa-shield-halved text-base"></i>
+            <span>Vetting Dashboard</span>
+            <span id="pendingBadgeCount" class="ml-auto bg-brand-accent/25 text-brand-accent text-xxs font-bold px-2 py-0.5 rounded-full border border-brand-accent/20">2</span>
+          </button>
+        </nav>
+
+        <div class="pt-6 border-t border-brand-border">
+          <div class="text-xs font-bold tracking-wider text-slate-500 uppercase px-3 mb-3">Live Platform Stats</div>
+          <div class="space-y-3 px-3">
+            <div class="flex justify-between items-center text-xs">
+              <span class="text-slate-400">Database Integrity</span>
+              <span class="text-emerald-400 font-semibold flex items-center"><span class="h-1.5 w-1.5 rounded-full bg-emerald-400 mr-1.5 animate-pulse"></span>Active</span>
+            </div>
+            <div class="flex justify-between items-center text-xs">
+              <span class="text-slate-400">Total Submissions</span>
+              <span id="sidebar-total" class="font-bold text-slate-200">3</span>
+            </div>
+            <div class="flex justify-between items-center text-xs">
+              <span class="text-slate-400">Top 20% Elite</span>
+              <span id="sidebar-approved" class="font-bold text-brand-gold">2</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Info Card -->
+      <div class="glass-card rounded-2xl p-4 border border-brand-border mt-auto shadow-inner">
+        <div class="flex items-center space-x-2 text-brand-400 text-xs font-semibold mb-1">
+          <i class="fa-solid fa-robot"></i>
+          <span>Văn Lang Career AI</span>
+        </div>
+        <p class="text-[11px] text-slate-400 leading-relaxed">Evaluating portfolios using real Agency Benchmarks. Elite profiles score 80+ and appear as Top 20% graduates.</p>
+      </div>
+    </aside>
+
+    <!-- Content Workspace -->
+    <main class="flex-grow p-6 md:p-8 overflow-y-auto max-w-full">
+
+      <!-- View 1: Student Workspace -->
+      <div id="view-student-workspace" class="view-container space-y-8 block">
+        <!-- Dashboard Welcome Hero -->
+        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 bg-gradient-to-r from-slate-900 to-brand-darkbg border border-brand-border rounded-3xl p-6 lg:p-8 shadow-2xl relative overflow-hidden">
+          <div class="absolute right-0 top-0 w-80 h-80 bg-brand-500/10 rounded-full blur-[90px] pointer-events-none"></div>
+          <div class="absolute left-1/3 bottom-0 w-60 h-60 bg-brand-accent/5 rounded-full blur-[80px] pointer-events-none"></div>
+          
+          <div class="space-y-3 max-w-xl z-10">
+            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-brand-500/10 text-brand-400 border border-brand-500/20">
+              <i class="fa-solid fa-sparkles mr-1.5 text-brand-accent"></i> Instant AI Evaluation
+            </span>
+            <h2 class="text-2xl lg:text-3xl font-extrabold tracking-tight font-heading text-white">VLU AI Portfolio & Resume Vetting Portal</h2>
+            <p class="text-slate-350 text-sm leading-relaxed">Submit your professional resume and digital portfolio below. Our AI screening algorithm will grade your corporate readiness. Score above 80 points to be featured on the Course Convenor's Elite Roster!</p>
+          </div>
+
+          <!-- Quick interactive stat cards -->
+          <div class="flex gap-4 shrink-0 z-10">
+            <div class="glass-card rounded-2xl p-4 flex flex-col items-center justify-center w-28 border border-white/5 shadow-lg">
+              <span class="text-xs font-semibold text-slate-400 mb-1">Target Score</span>
+              <span class="text-2xl font-black text-white">80+</span>
+              <span class="text-[9px] uppercase font-bold tracking-wider text-brand-400 mt-1">To Enter Elite</span>
+            </div>
+            <div class="glass-card rounded-2xl p-4 flex flex-col items-center justify-center w-28 border border-white/5 shadow-lg">
+              <span class="text-xs font-semibold text-slate-400 mb-1">Your Standing</span>
+              <span id="student-badge-badge-state" class="text-xs font-bold text-amber-500 flex flex-col items-center mt-1 text-center">
+                <i class="fa-solid fa-circle-question mb-1 text-base"></i>
+                Not Evaluated
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Student Flow Steps -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+          
+          <!-- Column 1: Submission / Upload Module -->
+          <div class="lg:col-span-7 space-y-6">
+            <div class="glass-card rounded-3xl p-6 border border-slate-800 shadow-xl space-y-5">
+              <div class="flex items-center space-x-3 border-b border-slate-800 pb-4">
+                <div class="h-9 w-9 rounded-lg bg-brand-500/10 flex items-center justify-center text-brand-400">
+                  <i class="fa-solid fa-file-invoice text-base"></i>
+                </div>
+                <div>
+                  <h3 class="text-base font-bold font-heading text-slate-200">Portfolio Submission Hub</h3>
+                  <p class="text-xs text-slate-400">Fill in details and let the AI perform immediate analysis</p>
+                </div>
+              </div>
+
+              <!-- Quick Template Selectors -->
+              <div class="space-y-2 bg-slate-950/40 p-4 border border-slate-850 rounded-2xl">
+                <label class="block text-2xs font-extrabold text-slate-400 uppercase tracking-widest flex items-center">
+                  <i class="fa-solid fa-bolt text-brand-gold mr-1.5 animate-pulse"></i>
+                  Load Ready-to-Test Resume Templates
+                </label>
+                <div class="flex flex-wrap gap-2 pt-1.5">
+                  <button type="button" onclick="loadMockTemplate('pr-elite')" class="px-2.5 py-1.5 bg-slate-900 border border-slate-800 rounded-lg text-xxs font-bold text-brand-300 hover:border-brand-500 hover:bg-brand-500/5 transition-all flex items-center">
+                    <i class="fa-solid fa-award mr-1.5 text-brand-gold"></i> PR Elite Case (80+)
+                  </button>
+                  <button type="button" onclick="loadMockTemplate('marketing-elite')" class="px-2.5 py-1.5 bg-slate-900 border border-slate-800 rounded-lg text-xxs font-bold text-brand-300 hover:border-brand-500 hover:bg-brand-500/5 transition-all flex items-center">
+                    <i class="fa-solid fa-rocket mr-1.5 text-brand-accent"></i> Marketing Elite (80+)
+                  </button>
+                  <button type="button" onclick="loadMockTemplate('design-needs-work')" class="px-2.5 py-1.5 bg-slate-900 border border-slate-800 rounded-lg text-xxs font-bold text-slate-400 hover:border-amber-500 hover:bg-amber-500/5 transition-all flex items-center">
+                    <i class="fa-solid fa-triangle-exclamation mr-1.5 text-amber-500"></i> Design Standard (<80)
+                  </button>
+                </div>
+              </div>
+
+              <!-- Interactive Form -->
+              <form id="portfolioForm" class="space-y-4" onsubmit="handlePortfolioSubmit(event)">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Student Full Name</label>
+                    <input type="text" id="stu-name" required placeholder="e.g. Quynh Huong Nguyen" class="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-sm text-slate-200 focus:outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 transition-all">
+                  </div>
+                  <div>
+                    <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Academic Major</label>
+                    <select id="stu-major" required class="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-sm text-slate-250 focus:outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 transition-all">
+                      <option value="Public Relations & Communication">Public Relations & Communication</option>
+                      <option value="Digital Marketing">Digital Marketing</option>
+                      <option value="Graphic Design & Multimedia">Graphic Design & Multimedia</option>
+                      <option value="Software Engineering">Software Engineering</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Digital Portfolio Link</label>
+                    <div class="relative">
+                      <span class="absolute left-4 top-1/2 -translate-y-1/2 text-xs text-slate-500 font-semibold">https://</span>
+                      <input type="text" id="stu-portfolio" required placeholder="huongnguyen.design" class="w-full bg-slate-950/80 border border-slate-800 rounded-xl pl-16 pr-4 py-3 text-sm text-slate-200 focus:outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 transition-all">
+                    </div>
+                  </div>
+                  <div>
+                    <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Key Skills (Comma separated)</label>
+                    <input type="text" id="stu-skills" required placeholder="Figma, Copywriting, Campaign Planning" class="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-sm text-slate-200 focus:outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 transition-all">
+                  </div>
+                </div>
+
+                <div>
+                  <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Resume Details / Text Summary</label>
+                  <textarea id="stu-resume" required rows="4" placeholder="Paste your professional experiences, internships, awards, or key project descriptions here..." class="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-sm text-slate-250 focus:outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 transition-all leading-relaxed"></textarea>
+                </div>
+
+                <!-- Interactive File Upload Mockup Component -->
+                <div>
+                  <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Upload Resume Document (PDF / Word)</label>
+                  <div class="relative border-2 border-dashed border-slate-800 hover:border-brand-500/50 bg-slate-950/50 rounded-xl p-5 text-center cursor-pointer transition-all duration-300 group" id="dropzoneContainer" onclick="triggerFileSelect()">
+                    <input type="file" id="stu-file" class="hidden" accept=".pdf,.doc,.docx" onchange="handleFileSelected(event)">
+                    
+                    <div id="dropzoneEmpty" class="space-y-2">
+                      <div class="text-slate-500 group-hover:text-brand-400 transition-colors">
+                        <i class="fa-solid fa-cloud-arrow-up text-3xl animate-bounce"></i>
+                      </div>
+                      <p class="text-sm font-semibold text-slate-300">Drag & drop your official PDF resume here</p>
+                      <p class="text-xs text-slate-500">Supports standard formats up to 10MB (Simulated)</p>
+                    </div>
+
+                    <div id="dropzoneSuccess" class="hidden space-y-2 flex flex-col items-center">
+                      <div class="h-10 w-10 bg-emerald-500/10 rounded-full flex items-center justify-center text-emerald-400">
+                        <i class="fa-solid fa-file-circle-check text-lg"></i>
+                      </div>
+                      <p id="uploadedFileName" class="text-sm font-semibold text-emerald-400">resume_vlang_pr.pdf</p>
+                      <p class="text-xs text-slate-500 flex items-center"><span class="h-2 w-2 rounded-full bg-emerald-400 mr-1.5 animate-pulse"></span>Successfully Mocked Upload (480 KB)</p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Action Button -->
+                <button type="submit" class="w-full bg-gradient-to-r from-brand-600 to-brand-700 hover:from-brand-500 hover:to-brand-600 text-white font-bold py-3.5 px-6 rounded-xl transition-all shadow-lg shadow-brand-600/10 flex items-center justify-center space-x-2 text-sm">
+                  <i class="fa-solid fa-wand-magic-sparkles"></i>
+                  <span>Submit & Launch AI Vetting Scanner</span>
+                </button>
+              </form>
+
+              <!-- Simulated AI Scanner Screen Overlay (Hidden by Default) -->
+              <div id="aiScannerOverlay" class="hidden absolute inset-0 bg-slate-950/95 backdrop-blur-md rounded-3xl z-30 flex flex-col items-center justify-center p-6 text-center transition-all duration-300">
+                <div class="relative w-64 h-32 bg-slate-900 border border-brand-500/30 rounded-2xl overflow-hidden shadow-inner flex items-center justify-center mb-6">
+                  <!-- Scanning holographic grid -->
+                  <div class="absolute inset-0 bg-[radial-gradient(circle,rgba(99,102,241,0.08)_1px,transparent_1px)] bg-[size:10px_10px]"></div>
+                  <!-- Scanning green beam -->
+                  <div class="scanning-line absolute left-0 w-full h-1 bg-gradient-to-r from-transparent via-brand-accent to-transparent shadow-[0_0_10px_rgba(244,63,94,0.8)]"></div>
+                  <!-- Interactive progress text -->
+                  <div class="text-center z-10 px-4 space-y-1">
+                    <span class="text-xs font-bold text-slate-500 uppercase tracking-widest block">AI ANALYZER SYSTEM</span>
+                    <span class="text-lg font-black text-brand-300 tracking-wider flex items-center justify-center">
+                      <i class="fa-solid fa-microchip mr-2 animate-pulse text-brand-accent"></i>
+                      <span id="scanPercent">0%</span>
+                    </span>
+                  </div>
+                </div>
+
+                <div class="max-w-md space-y-3">
+                  <h4 class="text-lg font-bold font-heading text-white">AI Agency-Ready Assessment Pipeline</h4>
+                  <div class="h-1.5 w-60 bg-slate-800 rounded-full mx-auto overflow-hidden">
+                    <div id="scanProgressBar" class="h-full bg-gradient-to-r from-brand-500 to-brand-accent w-0 transition-all duration-100 ease-out"></div>
+                  </div>
+                  <!-- Animated Status Console Logs -->
+                  <div id="scanConsole" class="text-[11px] font-mono text-slate-400 h-12 flex flex-col items-center justify-center transition-all">
+                    Initializing assessment...
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Column 2: Dashboard Real-time Results & Verification Certificate -->
+          <div class="lg:col-span-5 space-y-6">
+            
+            <!-- Result Panel -->
+            <div id="studentResultCard" class="glass-card rounded-3xl p-6 border border-slate-800 shadow-xl space-y-6 flex flex-col justify-center min-h-[400px] transition-all">
+              
+              <!-- Empty state before first analysis -->
+              <div id="resultStateEmpty" class="text-center py-10 space-y-4">
+                <div class="h-16 w-16 bg-slate-900 border border-slate-800 rounded-full flex items-center justify-center text-slate-600 mx-auto">
+                  <i class="fa-solid fa-chart-line text-2xl"></i>
+                </div>
+                <div class="space-y-1">
+                  <h4 class="text-sm font-bold text-slate-350">Awaiting Portfolio Submission</h4>
+                  <p class="text-xs text-slate-500 max-w-[240px] mx-auto">Enter your details and trigger the scanner to see your real-time AI Grade and comprehensive report.</p>
+                </div>
+              </div>
+
+              <!-- Assessment Output Card (Revealed after submission) -->
+              <div id="resultStatePopulated" class="hidden space-y-6">
+                <!-- Score Header Grid -->
+                <div class="flex items-center justify-between gap-4 border-b border-slate-800 pb-5">
+                  <div class="space-y-1.5">
+                    <span id="studentResultStatusBadge" class="inline-flex items-center px-2.5 py-1 rounded-full text-2xs font-extrabold tracking-wider uppercase border">
+                      PENDING REVIEW
+                    </span>
+                    <h3 class="text-lg font-bold font-heading text-slate-200" id="resultName">Sarah Jenkins</h3>
+                    <p class="text-xs text-slate-400" id="resultMajor">Public Relations Major</p>
+                  </div>
+                  
+                  <!-- Circular Gauge for Score -->
+                  <div class="relative h-20 w-20 flex items-center justify-center shrink-0">
+                    <svg class="absolute transform -rotate-90 w-full h-full" viewBox="0 0 36 36">
+                      <path class="text-slate-800" stroke-width="2" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                      <path id="resultScoreRing" class="text-brand-500 transition-all duration-1000 ease-out" stroke-width="2.5" stroke-dasharray="0, 100" stroke-linecap="round" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                    </svg>
+                    <div class="text-center z-10">
+                      <span class="text-xl font-extrabold font-heading text-white" id="resultScoreText">0</span>
+                      <span class="text-[9px] text-slate-400 block font-bold uppercase tracking-wider">Score</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Status alert bar -->
+                <div id="resultStatusBanner" class="rounded-xl p-3 text-xs flex items-start space-x-2 border">
+                  <i class="fa-solid fa-circle-exclamation mt-0.5 shrink-0"></i>
+                  <span id="resultStatusText">Score threshold status text here...</span>
+                </div>
+
+                <!-- Detailed AI Feedback -->
+                <div class="space-y-4">
+                  <span class="text-2xs font-extrabold tracking-wider text-slate-400 uppercase block">AI Comprehensive Evaluation</span>
+                  
+                  <div class="space-y-3">
+                    <div class="flex items-start space-x-2.5">
+                      <span class="h-5 w-5 bg-emerald-500/10 rounded-full flex items-center justify-center shrink-0 text-emerald-400 text-xs">
+                        <i class="fa-solid fa-circle-check"></i>
+                      </span>
+                      <div class="text-xs text-slate-300 leading-relaxed">
+                        <strong class="text-slate-100 font-bold block">Key Strength</strong>
+                        <span id="resultStrength">Highlighted strength text will go here...</span>
+                      </div>
+                    </div>
+
+                    <div class="flex items-start space-x-2.5">
+                      <span class="h-5 w-5 bg-amber-500/10 rounded-full flex items-center justify-center shrink-0 text-amber-400 text-xs">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                      </span>
+                      <div class="text-xs text-slate-300 leading-relaxed">
+                        <strong class="text-slate-100 font-bold block">Growth Area</strong>
+                        <span id="resultImprovement">Highlighted improvement area will go here...</span>
+                      </div>
+                    </div>
+
+                    <div class="flex items-start space-x-2.5">
+                      <span class="h-5 w-5 bg-brand-500/10 rounded-full flex items-center justify-center shrink-0 text-brand-300 text-xs">
+                        <i class="fa-solid fa-arrow-trend-up"></i>
+                      </span>
+                      <div class="text-xs text-slate-300 leading-relaxed">
+                        <strong class="text-slate-100 font-bold block">Recommended Next Step</strong>
+                        <span id="resultNextStep">Recommended action steps will go here...</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Digital Verification Seal Block -->
+                <div id="badgeRevealContainer" class="hidden transition-all duration-500 pt-2">
+                  <div class="hologram-seal rounded-2xl p-5 border border-brand-gold flex items-center space-x-4 relative overflow-hidden">
+                    <div class="absolute -right-4 -bottom-4 w-24 h-24 bg-brand-gold/10 rounded-full blur-xl pointer-events-none"></div>
+                    <!-- Certificate seal graphic spinning and glowing -->
+                    <div class="h-14 w-14 bg-gradient-to-br from-brand-gold to-amber-600 rounded-2xl flex items-center justify-center shadow-lg shadow-brand-gold/25 relative animate-float shrink-0">
+                      <i class="fa-solid fa-award text-white text-2xl animate-pulse"></i>
+                      <!-- Orbiting shimmer effect -->
+                      <span class="absolute inset-0 rounded-2xl border-2 border-white/30 animate-pulse-slow"></span>
+                    </div>
+                    <div class="space-y-1">
+                      <div class="flex items-center space-x-1.5">
+                        <span class="text-3xs font-extrabold uppercase bg-brand-gold/20 text-brand-gold px-2 py-0.5 rounded border border-brand-gold/30">Top 20%</span>
+                        <span class="text-[10px] text-brand-gold font-bold flex items-center"><i class="fa-solid fa-shield-halved mr-1 text-[11px]"></i>Elite Tier</span>
+                      </div>
+                      <h4 class="text-sm font-extrabold font-heading text-white">Elite High-Performer Profile</h4>
+                      <p class="text-[11px] text-slate-350 leading-relaxed font-medium">Your resume and portfolio cleared the elite industry benchmark, instantly featuring your profile on the Convenor talent roster.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- View 2: Convenor Portal (Admin View) -->
+      <div id="view-convenor-portal" class="view-container space-y-8 hidden">
+        <!-- Vetting Dashboard Header & Stats Cards -->
+        <div class="space-y-6">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div>
+              <h2 class="text-2xl font-extrabold tracking-tight font-heading text-white">Course Convenor Control Panel</h2>
+              <p class="text-slate-400 text-xs mt-0.5">Scouting student submissions, tracking dynamic AI grades, and reviewing Top 20% elite profiles</p>
+            </div>
+            
+            <!-- Quick search & category tags -->
+            <div class="flex flex-wrap items-center gap-3">
+              <div class="relative">
+                <input type="text" id="convenorSearchInput" oninput="applyFilters()" placeholder="Search students..." class="bg-slate-900/90 border border-slate-800 rounded-xl pl-9 pr-4 py-2 text-xs text-slate-200 focus:outline-none focus:border-brand-500 w-48 md:w-56 transition-all">
+                <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-[11px]"></i>
+              </div>
+              <select id="convenorFilterStatus" onchange="applyFilters()" class="bg-slate-900/90 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-300 focus:outline-none focus:border-brand-500 transition-all">
+                <option value="ALL">All Scores</option>
+                <option value="ELITE">Top 20% Elite Vetting (80+)</option>
+                <option value="LOW">Standard Performance (<80)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Stats Counters Grid -->
+          <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="glass-card rounded-2xl p-5 border border-slate-800 shadow-md">
+              <div class="flex justify-between items-start">
+                <span class="text-xs font-semibold text-slate-400">Total Submissions</span>
+                <span class="h-7 w-7 rounded-lg bg-brand-500/10 flex items-center justify-center text-brand-400 text-xs">
+                  <i class="fa-solid fa-folder-open"></i>
+                </span>
+              </div>
+              <div class="mt-2.5">
+                <span class="text-2xl font-extrabold font-heading text-white" id="stat-total">3</span>
+                <span class="text-2xs text-emerald-400 font-bold block mt-1"><i class="fa-solid fa-circle-check mr-1"></i>100% Evaluated</span>
+              </div>
+            </div>
+
+            <div class="glass-card rounded-2xl p-5 border border-slate-800 shadow-md">
+              <div class="flex justify-between items-start">
+                <span class="text-xs font-semibold text-slate-400">Top 20% Elite Students</span>
+                <span class="h-7 w-7 rounded-lg bg-brand-gold/10 flex items-center justify-center text-brand-gold text-xs">
+                  <i class="fa-solid fa-award"></i>
+                </span>
+              </div>
+              <div class="mt-2.5">
+                <span class="text-2xl font-extrabold font-heading text-brand-gold" id="stat-pending">2</span>
+                <span class="text-2xs text-slate-400 block mt-1">Met 80+ AI threshold</span>
+              </div>
+            </div>
+
+            <div class="glass-card rounded-2xl p-5 border border-slate-800 shadow-md">
+              <div class="flex justify-between items-start">
+                <span class="text-xs font-semibold text-slate-400">Standard Profiles</span>
+                <span class="h-7 w-7 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 text-xs">
+                  <i class="fa-solid fa-circle-minus"></i>
+                </span>
+              </div>
+              <div class="mt-2.5">
+                <span class="text-2xl font-extrabold font-heading text-slate-350" id="stat-approved">1</span>
+                <span class="text-2xs text-brand-300 font-bold block mt-1"><i class="fa-solid fa-arrows-spin mr-1"></i>Awaiting optimization</span>
+              </div>
+            </div>
+
+            <div class="glass-card rounded-2xl p-5 border border-slate-800 shadow-md">
+              <div class="flex justify-between items-start">
+                <span class="text-xs font-semibold text-slate-400">Average AI Rating</span>
+                <span class="h-7 w-7 rounded-lg bg-brand-accent/10 flex items-center justify-center text-brand-accent text-xs">
+                  <i class="fa-solid fa-brain"></i>
+                </span>
+              </div>
+              <div class="mt-2.5">
+                <span class="text-2xl font-extrabold font-heading text-white" id="stat-avg">84.3</span>
+                <span class="text-2xs text-brand-400 font-bold block mt-1"><i class="fa-solid fa-circle-nodes mr-1"></i>Agency benchmark: 80.0</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Submissions Data Table / Card list -->
+        <div class="glass-card rounded-3xl border border-slate-800 shadow-xl overflow-hidden">
+          <div class="px-6 py-5 border-b border-slate-800 flex items-center justify-between">
+            <h3 class="text-sm font-bold font-heading text-slate-200">Official Student Roster & Evaluation Queue</h3>
+            <span class="text-2xs font-extrabold uppercase bg-slate-900 border border-slate-800 text-slate-400 px-3 py-1 rounded-full flex items-center">
+              <span class="h-2 w-2 rounded-full bg-brand-500 mr-2 animate-pulse"></span>Live Local Storage Database
+            </span>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr class="bg-slate-950/60 border-b border-slate-800 text-2xs font-bold text-slate-400 uppercase tracking-widest">
+                  <th class="px-6 py-4">Student Profile</th>
+                  <th class="px-6 py-4">Academic Major</th>
+                  <th class="px-6 py-4">AI Score</th>
+                  <th class="px-6 py-4 text-center">Talent Vetting Tier</th>
+                  <th class="px-6 py-4 text-right">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="studentTableBody" class="divide-y divide-slate-800/60 text-xs text-slate-350">
+                <!-- Rows will be dynamically loaded via JS -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Empty filter state -->
+          <div id="tableEmptyState" class="hidden text-center py-16 space-y-3">
+            <div class="text-slate-600 text-3xl"><i class="fa-solid fa-ban"></i></div>
+            <h4 class="text-sm font-bold text-slate-350">No submissions found matching criteria</h4>
+            <p class="text-xs text-slate-500">Try adjusting your filters or search terms.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide-Over Drawer for Detailed Evaluation (Hidden by Default) -->
+      <div id="evaluationDrawer" class="hidden fixed inset-0 z-50 overflow-hidden" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
+        <div class="absolute inset-0 overflow-hidden">
+          <!-- Backdrop background blur -->
+          <div onclick="closeDrawer()" class="absolute inset-0 bg-slate-950/80 backdrop-blur-sm transition-opacity" aria-hidden="true"></div>
+
+          <div class="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10">
+            <div class="pointer-events-auto w-screen max-w-lg">
+              <div class="flex h-full flex-col bg-brand-cardbg border-l border-brand-border shadow-2xl overflow-y-auto">
+                
+                <!-- Drawer Header -->
+                <div class="px-6 py-5 border-b border-slate-800 flex items-center justify-between bg-slate-950/85">
+                  <div class="flex items-center space-x-3">
+                    <span class="h-9 w-9 bg-brand-500/10 rounded-xl flex items-center justify-center text-brand-400">
+                      <i class="fa-solid fa-id-card"></i>
+                    </span>
+                    <div>
+                      <h2 class="text-base font-bold font-heading text-white" id="drawerStudentName">Sarah Jenkins</h2>
+                      <span class="text-2xs text-slate-450 uppercase font-semibold" id="drawerStudentMajor">Digital Design Student</span>
+                    </div>
+                  </div>
+                  <button onclick="closeDrawer()" class="h-7 w-7 rounded-lg hover:bg-slate-800 flex items-center justify-center text-slate-400 hover:text-white transition-colors">
+                    <i class="fa-solid fa-xmark"></i>
+                  </button>
+                </div>
+
+                <!-- Drawer Content -->
+                <div class="flex-1 p-6 space-y-6">
+                  
+                  <!-- Score Circle Gauge and Metadata -->
+                  <div class="glass-card rounded-2xl p-5 border border-slate-800 flex items-center justify-between">
+                    <div class="space-y-1.5">
+                      <span class="text-3xs font-extrabold uppercase bg-slate-900 border border-slate-800 text-slate-400 px-2 py-0.5 rounded">Vetting ID: <span id="drawerStuId">#1</span></span>
+                      <p class="text-xs text-slate-350 flex items-center">
+                        <i class="fa-solid fa-link text-brand-400 mr-2"></i>
+                        <a href="#" id="drawerPortfolioLink" target="_blank" class="hover:text-brand-300 underline font-semibold">Visit Portfolio</a>
+                      </p>
+                      <p class="text-xs text-slate-400">Submitted: <span id="drawerSubmitDate" class="font-medium text-slate-300">2026-05-18</span></p>
+                    </div>
+
+                    <div class="flex items-center space-x-3 bg-slate-950/50 p-2.5 rounded-xl border border-slate-800">
+                      <div class="text-right">
+                        <span class="text-[10px] text-slate-500 block uppercase font-bold tracking-wider">AI Score</span>
+                        <span class="text-lg font-black text-white" id="drawerScoreText">87</span>
+                      </div>
+                      <div id="drawerScoreBadge" class="h-10 w-10 rounded-lg font-black flex items-center justify-center text-sm shadow">
+                        A
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Resume summary section -->
+                  <div class="space-y-2">
+                    <label class="block text-2xs font-extrabold tracking-wider text-slate-400 uppercase">Resume Content Summary</label>
+                    <div class="bg-slate-950/80 border border-slate-800 rounded-xl p-4 text-xs text-slate-300 leading-relaxed max-h-40 overflow-y-auto whitespace-pre-line" id="drawerResumeText">
+                      Student resume content.
+                    </div>
+                  </div>
+
+                  <!-- AI Vetting recommendations breakdown -->
+                  <div class="space-y-4">
+                    <label class="block text-2xs font-extrabold tracking-wider text-slate-400 uppercase">Văn Lang AI Evaluation Report</label>
+                    
+                    <div class="space-y-3.5">
+                      <div class="bg-slate-950/40 border border-slate-800/80 rounded-xl p-3.5 space-y-1">
+                        <span class="text-xs font-bold text-emerald-400 flex items-center"><i class="fa-solid fa-circle-check mr-2"></i>Key Strengths Found</span>
+                        <p class="text-xs text-slate-350 leading-relaxed" id="drawerStrength">Strength feedback...</p>
+                      </div>
+
+                      <div class="bg-slate-950/40 border border-slate-800/80 rounded-xl p-3.5 space-y-1">
+                        <span class="text-xs font-bold text-amber-400 flex items-center"><i class="fa-solid fa-circle-exclamation mr-2"></i>Areas of Improvement</span>
+                        <p class="text-xs text-slate-350 leading-relaxed" id="drawerImprovement">Improvement feedback...</p>
+                      </div>
+
+                      <div class="bg-slate-950/40 border border-slate-800/80 rounded-xl p-3.5 space-y-1">
+                        <span class="text-xs font-bold text-brand-300 flex items-center"><i class="fa-solid fa-lightbulb mr-2"></i>Next Vetting Steps</span>
+                        <p class="text-xs text-slate-350 leading-relaxed" id="drawerNextStep">Next step feedback...</p>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+                <!-- Drawer Read-Only Talent Review Footer -->
+                <div class="px-6 py-5 border-t border-slate-800 bg-slate-950/85">
+                  <div class="w-full text-center py-3 bg-slate-900 border border-slate-800 rounded-xl text-xxs font-bold text-slate-400 uppercase tracking-widest flex items-center justify-center space-x-2">
+                    <i class="fa-solid fa-circle-info text-brand-gold animate-pulse text-xs"></i>
+                    <span>Read-Only Student Talent Review Mode</span>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- Dynamic Footer Bar -->
+  <footer class="border-t border-brand-border bg-slate-950/80 px-6 py-4 flex flex-col md:flex-row md:items-center justify-between text-xs text-slate-500 gap-4">
+    <div class="flex items-center space-x-1">
+      <span>© 2026 Văn Lang University Career Division. Powered by Antigravity AI Core.</span>
+    </div>
+    <div class="flex space-x-4">
+      <a href="#" class="hover:text-brand-400 transition-colors">Privacy Policy</a>
+      <a href="#" class="hover:text-brand-400 transition-colors">University Guidelines</a>
+      <a href="#" class="hover:text-brand-400 transition-colors">Agency Benchmarks</a>
+    </div>
+  </footer>
+
+  <!-- Application Logic (Vanilla JavaScript State Management & Rendering) -->
+  <script type="text/javascript">
+    
+    // Initial Preloaded LocalStorage Database (State)
+    const initialDatabase = [
+      {
+        id: 1,
+        name: "Minh Nguyen",
+        major: "Public Relations & Communication",
+        portfolioUrl: "https://minhnguyen.design",
+        skills: "PR Campaign Design, Social Media Analytics, Brand Strategy",
+        resumeText: "Creative PR major at Văn Lang University. Managed and coordinated a successful social media launch campaign for a local gourmet coffee brand, achieving a verified 25% increase in online student engagement and driving a 15% foot-traffic uplift over a 2-month trial period.",
+        aiScore: 87,
+        aiStrength: "Strong digital portfolio showing actual, verified campaign designs for local brands with measurable KPIs and ROI results.",
+        aiImprovement: "Resume layout is slightly text-heavy in the professional experience section; bullet points need to lead with core performance metrics.",
+        aiNextStep: "Condense the introductory professional summary and lead your experience section directly with the 25% engagement increase metric.",
+        status: "Elite Vetted", // Score >= 80, highlighted
+        badgeUnlocked: false,
+        submitDate: "2026-05-18"
+      },
+      {
+        id: 2,
+        name: "Lan Anh Tran",
+        major: "Digital Marketing",
+        portfolioUrl: "https://lananh.marketing",
+        skills: "Content Writing, SEO, PPC Campaigns, Market Research",
+        resumeText: "Detail-oriented Digital Marketing senior with 1+ years of freelance project coordination. Designed, managed, and executed a 10M VND Google Search Ads PPC campaign, yielding a record 150+ verified high-quality student signups at an optimized CPA under benchmark.",
+        aiScore: 92,
+        aiStrength: "Outstanding application of digital marketing frameworks (SOSTAC). Exceptionally crisp copywriting and visual hierarchy throughout the digital portfolio.",
+        aiImprovement: "Needs to highlight technical web analytics tools (Google Analytics, SEO SEMrush, Hotjar) more prominently in the core skills sidebar.",
+        aiNextStep: "Insert specific high-impact search keywords into your portfolio project case descriptions to prove search intent expertise.",
+        status: "Elite Vetted", // Score >= 80, highlighted
+        badgeUnlocked: true,
+        submitDate: "2026-05-17"
+      },
+      {
+        id: 3,
+        name: "Hoang Nam Pham",
+        major: "Graphic Design & Multimedia",
+        portfolioUrl: "https://nampham.artstation.com",
+        skills: "Figma, Blender, Illustrator, UI/UX Design",
+        resumeText: "Passionate and detail-driven Graphic Design senior. Experienced in designing fully integrated branding identity packages for startup clients, as well as directing digital illustrations, UI prototypes, and personal design branding portfolios.",
+        aiScore: 74,
+        aiStrength: "Visually striking multimedia portfolio featuring exceptionally high-quality 3D render designs, character assets, and vector illustrations.",
+        aiImprovement: "Lacks structured project case studies; fails to clearly explain the underlying business objectives, UX methodologies, or client design constraints.",
+        aiNextStep: "Structure at least two portfolio projects using a case study format (Problem, Solution, My Role, Visual Iterations) to prove design thinking.",
+        status: "Standard Vetted", // Score < 80
+        badgeUnlocked: false,
+        submitDate: "2026-05-19"
+      }
+    ];
+
+    // Mock Resume Templates for Instant Form Filling
+    const mockTemplates = {
+      'pr-elite': {
+        name: "Le Minh Anh",
+        major: "Public Relations & Communication",
+        portfolio: "leminhanh.pr.myportfolio.com",
+        skills: "Media Relations, Copywriting, Campaign Planning, Crisis Management",
+        resume: "Public Relations Senior at Văn Lang University. Coordinated a 3-month media outreach campaign for a local sustainability initiative, successfully pitching and securing editorial features in 5 premium domestic lifestyle publications. Managed ongoing social campaign content that accumulated 45,000+ views and achieved a verified 22% positive increase in brand sentiment metrics."
+      },
+      'marketing-elite': {
+        name: "Ngo Nhat Minh",
+        major: "Digital Marketing",
+        portfolio: "nhatminh.marketing.page",
+        skills: "Google Ads PPC, SEO Audit, Funnel Conversion, Content Strategy",
+        resume: "Highly analytical and results-driven Digital Marketing senior. Built and launched a complete search advertising campaign for a student e-commerce boutique with a budget of 5,000,000 VND. Managed keyword research and structural bids, yielding a verified 80+ paid conversions and reducing overall student Cost-Per-Acquisition by 18% based on the SOSTAC funnel framework."
+      },
+      'design-needs-work': {
+        name: "Hoang Lam Nguyen",
+        major: "Graphic Design & Multimedia",
+        portfolio: "lamnguyen.artstation.com",
+        skills: "Photoshop, Illustrator, Visual Art",
+        resume: "Graphic Design enthusiast and senior at university. Love to draw custom digital characters and create standard vector icons or logo packages for friends in my spare time. Highly passionate about creative visual arts and illustrative styles. Completed standard visual study assignments during my academic courses."
+      }
+    };
+
+    // Initialize application state
+    let state = {
+      currentUserRole: 'student', // 'student' or 'admin'
+      currentView: 'student-workspace', // 'student-workspace', 'convenor-portal'
+      selectedDrawerStudentId: null,
+      students: []
+    };
+
+    // Load data from localStorage or initialize
+    function initDatabase() {
+      const stored = localStorage.getItem('vlu_ai_vetting_database');
+      if (stored) {
+        state.students = JSON.parse(stored);
+      } else {
+        state.students = [...initialDatabase];
+        localStorage.setItem('vlu_ai_vetting_database', JSON.stringify(state.students));
+      }
+      
+      // Update global badges and counters
+      refreshCounters();
+    }
+
+    // Save current state back to localStorage
+    function saveDatabase() {
+      localStorage.setItem('vlu_ai_vetting_database', JSON.stringify(state.students));
+      refreshCounters();
+    }
+
+    // Load mock templates in the submission form
+    function loadMockTemplate(type) {
+      const template = mockTemplates[type];
+      if (!template) return;
+
+      document.getElementById('stu-name').value = template.name;
+      document.getElementById('stu-major').value = template.major;
+      document.getElementById('stu-portfolio').value = template.portfolio;
+      document.getElementById('stu-skills').value = template.skills;
+      document.getElementById('stu-resume').value = template.resume;
+
+      // Mock a PDF file name upload representation
+      document.getElementById('uploadedFileName').innerText = template.name.toLowerCase().replace(/ /g, '_') + "_resume.pdf";
+      document.getElementById('dropzoneEmpty').classList.add('hidden');
+      document.getElementById('dropzoneSuccess').classList.remove('hidden');
+
+      // Subtle pulse highlight effect on loaded fields
+      const formFields = ['stu-name', 'stu-portfolio', 'stu-skills', 'stu-resume'];
+      formFields.forEach(fId => {
+        const el = document.getElementById(fId);
+        el.classList.add('ring-2', 'ring-brand-500/50');
+        setTimeout(() => {
+          el.classList.remove('ring-2', 'ring-brand-500/50');
+        }, 1200);
+      });
+    }
+
+    // Dynamic UI Stat Counter updates
+    function refreshCounters() {
+      const total = state.students.length;
+      const elite = state.students.filter(s => s.aiScore >= 80).length;
+      const standard = total - elite;
+      
+      // Calculate active average AI Score
+      const totalScore = state.students.reduce((acc, curr) => acc + curr.aiScore, 0);
+      const avg = total > 0 ? (totalScore / total).toFixed(1) : 0;
+
+      // Sidebar counters
+      document.getElementById('sidebar-total').innerText = total;
+      document.getElementById('sidebar-approved').innerText = elite;
+      
+      // Admin dashboard counters (if present in DOM)
+      if(document.getElementById('stat-total')) document.getElementById('stat-total').innerText = total;
+      if(document.getElementById('stat-pending')) document.getElementById('stat-pending').innerText = elite;
+      if(document.getElementById('stat-approved')) document.getElementById('stat-approved').innerText = standard;
+      if(document.getElementById('stat-avg')) document.getElementById('stat-avg').innerText = avg;
+
+      // Sidebar warning badges
+      const pendingBadge = document.getElementById('pendingBadgeCount');
+      if (elite > 0) {
+        pendingBadge.innerText = elite;
+        pendingBadge.classList.remove('hidden');
+      } else {
+        pendingBadge.classList.add('hidden');
+      }
+    }
+
+    // Role switcher logic (demonstration purposes)
+    function switchRole(role) {
+      state.currentUserRole = role;
+      
+      // CSS Toggle Buttons Styling
+      document.querySelectorAll('.role-btn').forEach(btn => {
+        btn.classList.remove('bg-brand-600', 'text-white');
+        btn.classList.add('text-slate-400', 'hover:text-slate-200', 'hover:bg-slate-800');
+      });
+      
+      const activeBtn = document.getElementById(`roleBtn-${role}`);
+      activeBtn.classList.remove('text-slate-400', 'hover:text-slate-200', 'hover:bg-slate-800');
+      activeBtn.classList.add('bg-brand-600', 'text-white');
+
+      // Auto view routing based on role selection to guide the user seamlessly
+      if (role === 'admin') {
+        switchView('convenor-portal');
+      } else {
+        switchView('student-workspace');
+      }
+    }
+
+    // View Panel navigation logic
+    function switchView(viewId) {
+      state.currentView = viewId;
+
+      // Update sidebar nav items
+      document.querySelectorAll('.nav-btn').forEach(btn => {
+        btn.classList.remove('bg-brand-600/15', 'border-l-2', 'border-brand-500', 'text-brand-300');
+        btn.classList.add('text-slate-400', 'hover:bg-slate-800/40', 'hover:text-slate-200', 'border-l-2', 'border-transparent');
+      });
+
+      const activeNav = document.getElementById(`nav-${viewId}`);
+      if (activeNav) {
+        activeNav.classList.remove('text-slate-400', 'hover:bg-slate-800/40', 'hover:text-slate-200', 'border-l-2', 'border-transparent');
+        activeNav.classList.add('bg-brand-600/15', 'border-l-2', 'border-brand-500', 'text-brand-300');
+      }
+
+      // Hide all panels
+      document.getElementById('view-student-workspace').classList.add('hidden');
+      document.getElementById('view-student-workspace').classList.remove('block');
+      document.getElementById('view-convenor-portal').classList.add('hidden');
+      document.getElementById('view-convenor-portal').classList.remove('block');
+
+      // Show the selected panel
+      const targetPanel = document.getElementById(`view-${viewId}`);
+      if (targetPanel) {
+        targetPanel.classList.remove('hidden');
+        targetPanel.classList.add('block');
+      }
+
+      // Contextual refresh of page rendering
+      if (viewId === 'convenor-portal') {
+        renderConvenorTable();
+      }
+    }
+
+    /* --- STUDENT HUB LOGIC --- */
+    
+    // File selection mock triggers
+    function triggerFileSelect() {
+      document.getElementById('stu-file').click();
+    }
+
+    function handleFileSelected(event) {
+      const file = event.target.files[0];
+      if (file) {
+        document.getElementById('uploadedFileName').innerText = file.name;
+        document.getElementById('dropzoneEmpty').classList.add('hidden');
+        document.getElementById('dropzoneSuccess').classList.remove('hidden');
+      }
+    }
+
+    // Portfolio & Resume AI evaluation submission
+    function handlePortfolioSubmit(event) {
+      event.preventDefault();
+      
+      const name = document.getElementById('stu-name').value.trim();
+      const major = document.getElementById('stu-major').value;
+      const portfolio = document.getElementById('stu-portfolio').value.trim();
+      const skills = document.getElementById('stu-skills').value.trim();
+      const resume = document.getElementById('stu-resume').value.trim();
+
+      if (!name || !portfolio || !skills || !resume) {
+        alert("Please fill in all the required portfolio fields to continue.");
+        return;
+      }
+
+      // Trigger neural scanner overlay
+      const overlay = document.getElementById('aiScannerOverlay');
+      overlay.classList.remove('hidden');
+
+      // Setup scanners
+      let progress = 0;
+      const progressBar = document.getElementById('scanProgressBar');
+      const progressPercent = document.getElementById('scanPercent');
+      const consoleLog = document.getElementById('scanConsole');
+
+      const logs = [
+        "Analyzing resume context and typography hierarchy...",
+        "Validating digital portfolio link connectivity at: " + portfolio,
+        "Running key skill relevance cross-matching...",
+        "Benchmarking metrics and local VLU educational credentials...",
+        "Analyzing copywriting impact and SOSTAC layout frameworks...",
+        "Assimilating VLU Agency-Ready benchmark matrices...",
+        "Vetting complete. Compiling final scorecard metrics..."
+      ];
+
+      const interval = setInterval(() => {
+        progress += 4;
+        progressBar.style.width = progress + '%';
+        progressPercent.innerText = progress + '%';
+
+        // Rotate logs based on progress markers
+        const logIndex = Math.min(Math.floor(progress / 15), logs.length - 1);
+        consoleLog.innerText = logs[logIndex];
+
+        if (progress >= 100) {
+          clearInterval(interval);
+          setTimeout(() => {
+            overlay.classList.add('hidden');
+            generateAiEvaluationResult(name, major, portfolio, skills, resume);
+          }, 600);
+        }
+      }, 100);
+    }
+
+    // Smart simulated AI generator that reacts directly to student input parameters
+    function generateAiEvaluationResult(name, major, portfolio, skills, resume) {
+      // Basic AI heuristic calculation based on word density and keyword matches
+      let rawScore = 70; // baseline
+      
+      // Keywords that increment readiness
+      const agencyKeywords = ["campaign", "lead", "manage", "organize", "roi", "verified", "conversion", "growth", "design", "figma", "client", "analytics", "seo"];
+      const lowerResume = resume.toLowerCase();
+      
+      agencyKeywords.forEach(kw => {
+        if (lowerResume.includes(kw)) {
+          rawScore += 3.5;
+        }
+      });
+
+      // Cap at 98 for realistic ceiling
+      const finalScore = Math.min(Math.round(rawScore), 98);
+      
+      // Formulate feedback assets based on major & skills
+      let strength = `Demonstrates clear hands-on competence in ${skills.split(',')[0] || 'primary technical skills'}. Portfolio links check out.`;
+      let improvement = "Could frame outcomes in a more data-driven manner. Experiences need standard quantitative values.";
+      let nextStep = "Quantify at least three resume bullets with clear metrics (e.g., increased engagement, optimized budget).";
+
+      if (major.includes("PR")) {
+        strength = `Excellent PR framing and messaging context inside the portfolio. Solid grasp of communication strategies.`;
+        improvement = "Needs to display active relationships or simulated pitches with media or key creators in case studies.";
+        nextStep = "Structure a mock PR press kit within your design assets to showcase end-to-end media planning capabilities.";
+      } else if (major.includes("Marketing")) {
+        strength = `Good understanding of performance loops and multi-channel campaign planning rules.`;
+        improvement = "Fails to showcase specific audience segment maps or digital custom conversion tracking setups.";
+        nextStep = "Insert a detailed SOSTAC client funnel mockup demonstrating traffic, retention, and final brand conversion paths.";
+      } else if (major.includes("Design")) {
+        strength = `High aesthetic quality in structural visual hierarchy. Visual assets show creative maturity.`;
+        improvement = "Lacks descriptive process work; does not capture research phases, wireframes, or startup briefs.";
+        nextStep = "Add side-by-side comparative graphics showing initial concepts versus finalized high-fidelity layouts.";
+      }
+
+      // Determine final vetted status
+      let finalStatus = "Standard Vetted";
+      if (finalScore >= 80) {
+        finalStatus = "Elite Vetted";
+      }
+
+      // Instantly inject new student entry into our active database list
+      const newStudent = {
+        id: state.students.length + 1,
+        name: name,
+        major: major,
+        portfolioUrl: "https://" + portfolio.replace('https://', '').replace('http://', ''),
+        skills: skills,
+        resumeText: resume,
+        aiScore: finalScore,
+        aiStrength: strength,
+        aiImprovement: improvement,
+        aiNextStep: nextStep,
+        status: finalStatus,
+        badgeUnlocked: finalScore >= 80,
+        submitDate: new Date().toISOString().split('T')[0]
+      };
+
+      state.students.push(newStudent);
+      saveDatabase();
+
+      // Show student result card immediately
+      renderStudentResultCard(newStudent);
+
+      // Trigger satisfying confetti blast if student achieves Elite Top 20% status!
+      if (finalScore >= 80) {
+        confetti({
+          particleCount: 120,
+          spread: 70,
+          origin: { y: 0.65 },
+          colors: ['#fbbf24', '#6366f1', '#10b981']
+        });
+      }
+    }
+
+    // Render Student Result Card View details
+    function renderStudentResultCard(student) {
+      document.getElementById('resultStateEmpty').classList.add('hidden');
+      document.getElementById('resultStatePopulated').classList.remove('hidden');
+
+      document.getElementById('resultName').innerText = student.name;
+      document.getElementById('resultMajor').innerText = student.major;
+      document.getElementById('resultScoreText').innerText = student.aiScore;
+      
+      // Update circular score progress stroke
+      const ring = document.getElementById('resultScoreRing');
+      ring.setAttribute('stroke-dasharray', `${student.aiScore}, 100`);
+
+      // Modify ring color depending on score thresholds
+      if (student.aiScore >= 80) {
+        ring.className.baseVal = "text-brand-gold transition-all duration-1000 ease-out";
+      } else {
+        ring.className.baseVal = "text-indigo-400 transition-all duration-1000 ease-out";
+      }
+
+      // Status text settings
+      const statusBadge = document.getElementById('studentResultStatusBadge');
+      const banner = document.getElementById('resultStatusBanner');
+      const bannerText = document.getElementById('resultStatusText');
+
+      if (student.aiScore >= 80) {
+        statusBadge.innerText = "TOP 20% - ELITE VETTED";
+        statusBadge.className = "inline-flex items-center px-2.5 py-1 rounded-full text-2xs font-extrabold tracking-wider uppercase border border-brand-gold bg-brand-gold/10 text-brand-gold";
+        banner.className = "rounded-xl p-3 text-xs flex items-start space-x-2 border border-brand-gold/20 bg-brand-gold/5 text-brand-gold";
+        bannerText.innerHTML = `<strong>Elite Rating Achieved!</strong> You rank in the top tier of VLU graduates. Your dynamic profile has been highlighted on the Course Convenor's Roster.`;
+        document.getElementById('badgeRevealContainer').classList.remove('hidden');
+        document.getElementById('student-badge-badge-state').innerHTML = `<i class="fa-solid fa-award text-brand-gold text-lg mb-1 animate-pulse"></i><span class="text-brand-gold text-[10px] uppercase font-extrabold">Top 20% Elite</span>`;
+      } else {
+        statusBadge.innerText = "STANDARD PROFILE VETTED";
+        statusBadge.className = "inline-flex items-center px-2.5 py-1 rounded-full text-2xs font-extrabold tracking-wider uppercase border border-slate-700 bg-slate-800/40 text-slate-350";
+        banner.className = "rounded-xl p-3 text-xs flex items-start space-x-2 border border-slate-800 bg-slate-900/50 text-slate-400";
+        bannerText.innerHTML = `<strong>Vetting Completed.</strong> Your profile has been logged on the roster. Review the optimization recommendations below to increase your score past 80 points.`;
+        document.getElementById('badgeRevealContainer').classList.add('hidden');
+        document.getElementById('student-badge-badge-state').innerHTML = `<i class="fa-solid fa-check text-slate-400 text-base mb-1"></i><span class="text-slate-400 text-[10px]">Standard Vetted</span>`;
+      }
+
+      // Populate text areas
+      document.getElementById('resultStrength').innerText = student.aiStrength;
+      document.getElementById('resultImprovement').innerText = student.aiImprovement;
+      document.getElementById('resultNextStep').innerText = student.aiNextStep;
+    }
+
+
+    /* --- CONVENOR / ADMIN PORTAL LOGIC --- */
+
+    // Render the dashboard table queue
+    function renderConvenorTable() {
+      const tbody = document.getElementById('studentTableBody');
+      const emptyState = document.getElementById('tableEmptyState');
+      tbody.innerHTML = '';
+
+      const query = document.getElementById('convenorSearchInput').value.toLowerCase();
+      const statusFilter = document.getElementById('convenorFilterStatus').value;
+
+      // Filter local lists
+      const filtered = state.students.filter(student => {
+        const matchesSearch = student.name.toLowerCase().includes(query) || student.major.toLowerCase().includes(query);
+        
+        let matchesStatus = true;
+        if (statusFilter === 'ELITE') {
+          matchesStatus = student.aiScore >= 80;
+        } else if (statusFilter === 'LOW') {
+          matchesStatus = student.aiScore < 80;
+        }
+
+        return matchesSearch && matchesStatus;
+      });
+
+      if (filtered.length === 0) {
+        emptyState.classList.remove('hidden');
+      } else {
+        emptyState.classList.add('hidden');
+        
+        filtered.forEach(student => {
+          const tr = document.createElement('tr');
+          tr.className = "hover:bg-slate-900/40 transition-colors border-b border-slate-800/40";
+          
+          let scoreBadgeColor = "bg-slate-800 text-slate-400";
+          if (student.aiScore >= 90) scoreBadgeColor = "bg-brand-gold/15 text-brand-gold border border-brand-gold/30";
+          else if (student.aiScore >= 80) scoreBadgeColor = "bg-brand-500/15 text-brand-300 border border-brand-500/30";
+          else scoreBadgeColor = "bg-slate-900 text-slate-500 border border-slate-800";
+
+          let statusCol = "";
+          if (student.aiScore >= 80) {
+            statusCol = `<span class="inline-flex items-center px-2 py-0.5 rounded text-2xs font-extrabold bg-brand-gold/10 text-brand-gold border border-brand-gold/20 shadow-sm shadow-brand-gold/5"><i class="fa-solid fa-award mr-1 animate-pulse"></i> Top 20% Elite</span>`;
+          } else {
+            statusCol = `<span class="inline-flex items-center px-2 py-0.5 rounded text-2xs font-extrabold bg-slate-950 text-slate-500 border border-slate-850">Standard Profile</span>`;
+          }
+
+          tr.innerHTML = `
+            <td class="px-6 py-4">
+              <div class="flex items-center space-x-3">
+                <div class="h-8 w-8 bg-slate-850 rounded-full flex items-center justify-center font-bold text-white border border-slate-800">
+                  ${student.name.split(' ').map(n=>n[0]).join('')}
+                </div>
+                <div>
+                  <span class="font-bold text-slate-100 block">${student.name}</span>
+                  <a href="${student.portfolioUrl}" target="_blank" class="text-slate-400 hover:text-brand-300 text-[10px] flex items-center"><i class="fa-solid fa-link mr-1"></i>Portfolio Site</a>
+                </div>
+              </div>
+            </td>
+            <td class="px-6 py-4 font-semibold text-slate-300">${student.major}</td>
+            <td class="px-6 py-4">
+              <span class="px-2.5 py-1 rounded-lg text-xs font-black font-heading ${scoreBadgeColor}">
+                ${student.aiScore}
+              </span>
+            </td>
+            <td class="px-6 py-4 text-center">${statusCol}</td>
+            <td class="px-6 py-4 text-right">
+              <button onclick="openDrawer(${student.id})" class="px-3 py-1.5 bg-slate-800 hover:bg-brand-600 hover:text-white rounded-lg text-slate-300 font-semibold transition-all">
+                Review Details
+              </button>
+            </td>
+          `;
+          tbody.appendChild(tr);
+        });
+      }
+    }
+
+    // Drawer overlay view transitions
+    function openDrawer(studentId) {
+      const student = state.students.find(s => s.id === studentId);
+      if (!student) return;
+
+      state.selectedDrawerStudentId = studentId;
+
+      document.getElementById('drawerStudentName').innerText = student.name;
+      document.getElementById('drawerStudentMajor').innerText = student.major;
+      document.getElementById('drawerStuId').innerText = `#${student.id}`;
+      document.getElementById('drawerPortfolioLink').href = student.portfolioUrl;
+      document.getElementById('drawerSubmitDate').innerText = student.submitDate;
+      document.getElementById('drawerScoreText').innerText = student.aiScore;
+
+      // Grade breakdown mapping
+      const gradeBadge = document.getElementById('drawerScoreBadge');
+      if (student.aiScore >= 90) {
+        gradeBadge.innerText = 'A';
+        gradeBadge.className = "h-10 w-10 rounded-lg font-black flex items-center justify-center text-sm shadow bg-brand-gold/25 text-brand-gold border border-brand-gold/30";
+      } else if (student.aiScore >= 80) {
+        gradeBadge.innerText = 'B';
+        gradeBadge.className = "h-10 w-10 rounded-lg font-black flex items-center justify-center text-sm shadow bg-brand-500/25 text-brand-300 border border-brand-500/30";
+      } else {
+        gradeBadge.innerText = 'C';
+        gradeBadge.className = "h-10 w-10 rounded-lg font-black flex items-center justify-center text-sm shadow bg-slate-800 text-slate-500 border border-slate-700";
+      }
+
+      // Set text details
+      document.getElementById('drawerResumeText').innerText = student.resumeText;
+      document.getElementById('drawerStrength').innerText = student.aiStrength;
+      document.getElementById('drawerImprovement').innerText = student.aiImprovement;
+      document.getElementById('drawerNextStep').innerText = student.aiNextStep;
+
+      // Slide open the drawer frame
+      document.getElementById('evaluationDrawer').classList.remove('hidden');
+    }
+
+    function closeDrawer() {
+      document.getElementById('evaluationDrawer').classList.add('hidden');
+    }
+
+    // Filter application trigger
+    function applyFilters() {
+      renderConvenorTable();
+    }
+
+
+    // Run application on start
+    window.addEventListener('DOMContentLoaded', () => {
+      initDatabase();
+    });
+
+  </script>
+</body>
+</html>
