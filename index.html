@@ -230,7 +230,7 @@
           <i class="fa-solid fa-robot"></i>
           <span>Văn Lang Career AI</span>
         </div>
-        <p class="text-[11px] text-slate-400 leading-relaxed">Evaluating portfolios using real Agency Benchmarks. Elite profiles score 80+ and appear as Top 10% graduates.</p>
+        <p class="text-[11px] text-slate-400 leading-relaxed">Evaluating portfolios using VLU evaluation rubrics. Elite profiles score 90+ and appear as Top 10% graduates.</p>
       </div>
     </aside>
 
@@ -409,7 +409,7 @@
                 </div>
 
                 <div class="max-w-md space-y-3">
-                  <h4 class="text-lg font-bold font-heading text-white">AI Agency-Ready Assessment Pipeline</h4>
+                  <h4 class="text-lg font-bold font-heading text-white">VLU AI Portfolio & Resume Vetting Pipeline</h4>
                   <div class="h-1.5 w-60 bg-slate-800 rounded-full mx-auto overflow-hidden">
                     <div id="scanProgressBar" class="h-full bg-gradient-to-r from-brand-500 to-brand-accent w-0 transition-all duration-100 ease-out"></div>
                   </div>
@@ -609,7 +609,7 @@
               </div>
               <div class="mt-2.5">
                 <span class="text-2xl font-extrabold font-heading text-white" id="stat-avg">84.3</span>
-                <span class="text-2xs text-brand-400 font-bold block mt-1"><i class="fa-solid fa-circle-nodes mr-1"></i>Agency benchmark: 80.0</span>
+                <span class="text-2xs text-brand-400 font-bold block mt-1"><i class="fa-solid fa-circle-nodes mr-1"></i>Target Elite Score: 90.0</span>
               </div>
             </div>
           </div>
@@ -906,7 +906,7 @@
     <div class="flex space-x-4">
       <a href="#" class="hover:text-brand-400 transition-colors">Privacy Policy</a>
       <a href="#" class="hover:text-brand-400 transition-colors">University Guidelines</a>
-      <a href="#" class="hover:text-brand-400 transition-colors">Agency Benchmarks</a>
+      <a href="#" class="hover:text-brand-400 transition-colors">Evaluation Standards</a>
     </div>
   </footer>
 
@@ -1199,7 +1199,7 @@
         "Running key skill relevance cross-matching...",
         "Benchmarking metrics and local VLU educational credentials...",
         "Analyzing copywriting impact and SOSTAC layout frameworks...",
-        "Assimilating VLU Agency-Ready benchmark matrices...",
+        "Assimilating VLU career evaluation matrices...",
         "Vetting complete. Compiling final scorecard metrics..."
       ];
 
@@ -1292,10 +1292,10 @@
       // Fallback/Simulated Heuristic logic if API key is not present or if call fails
       if (!apiKey || strength === "") {
         let rawScore = 70; // baseline
-        const agencyKeywords = ["campaign", "lead", "manage", "organize", "roi", "verified", "conversion", "growth", "design", "figma", "client", "analytics", "seo"];
+        const eliteKeywords = ["campaign", "lead", "manage", "organize", "roi", "verified", "conversion", "growth", "design", "figma", "client", "analytics", "seo"];
         const lowerResume = resume.toLowerCase();
         
-        agencyKeywords.forEach(kw => {
+        eliteKeywords.forEach(kw => {
           if (lowerResume.includes(kw)) {
             rawScore += 3.5;
           }
