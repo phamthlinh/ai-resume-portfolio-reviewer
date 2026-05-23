@@ -217,7 +217,7 @@
               <span id="sidebar-total" class="font-bold text-slate-200">3</span>
             </div>
             <div class="flex justify-between items-center text-xs">
-              <span class="text-slate-400">Top 20% Elite</span>
+              <span class="text-slate-400">Top 10% Elite</span>
               <span id="sidebar-approved" class="font-bold text-brand-gold">2</span>
             </div>
           </div>
@@ -230,7 +230,7 @@
           <i class="fa-solid fa-robot"></i>
           <span>Văn Lang Career AI</span>
         </div>
-        <p class="text-[11px] text-slate-400 leading-relaxed">Evaluating portfolios using real Agency Benchmarks. Elite profiles score 80+ and appear as Top 20% graduates.</p>
+        <p class="text-[11px] text-slate-400 leading-relaxed">Evaluating portfolios using real Agency Benchmarks. Elite profiles score 80+ and appear as Top 10% graduates.</p>
       </div>
     </aside>
 
@@ -257,7 +257,7 @@
             <div class="glass-card rounded-2xl p-4 flex flex-col items-center justify-center w-28 border border-white/5 shadow-lg">
               <span class="text-xs font-semibold text-slate-400 mb-1">Target Score</span>
               <span class="text-2xl font-black text-white">80+</span>
-              <span class="text-[9px] uppercase font-bold tracking-wider text-brand-400 mt-1">To Enter Elite</span>
+              <span class="text-[9px] uppercase font-bold tracking-wider text-brand-400 mt-1">Top 10% Elite</span>
             </div>
             <div class="glass-card rounded-2xl p-4 flex flex-col items-center justify-center w-28 border border-white/5 shadow-lg">
               <span class="text-xs font-semibold text-slate-400 mb-1">Your Standing</span>
@@ -500,7 +500,7 @@
                     </div>
                     <div class="space-y-1">
                       <div class="flex items-center space-x-1.5">
-                        <span class="text-3xs font-extrabold uppercase bg-brand-gold/20 text-brand-gold px-2 py-0.5 rounded border border-brand-gold/30">Top 20%</span>
+                        <span class="text-3xs font-extrabold uppercase bg-brand-gold/20 text-brand-gold px-2 py-0.5 rounded border border-brand-gold/30">Top 10%</span>
                         <span class="text-[10px] text-brand-gold font-bold flex items-center"><i class="fa-solid fa-shield-halved mr-1 text-[11px]"></i>Elite Tier</span>
                       </div>
                       <h4 class="text-sm font-extrabold font-heading text-white">Elite High-Performer Profile</h4>
@@ -534,7 +534,7 @@
               </div>
               <select id="convenorFilterStatus" onchange="applyFilters()" class="bg-slate-900/90 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-300 focus:outline-none focus:border-brand-500 transition-all">
                 <option value="ALL">All Scores</option>
-                <option value="ELITE">Top 20% Elite Vetting (80+)</option>
+                <option value="ELITE">Top 10% Elite Vetting (80+)</option>
                 <option value="LOW">Standard Performance (<80)</option>
               </select>
             </div>
@@ -557,14 +557,14 @@
 
             <div class="glass-card rounded-2xl p-5 border border-slate-800 shadow-md">
               <div class="flex justify-between items-start">
-                <span class="text-xs font-semibold text-slate-400">Top 20% Elite Students</span>
+                <span class="text-xs font-semibold text-slate-400">Top 10% Elite Students</span>
                 <span class="h-7 w-7 rounded-lg bg-brand-gold/10 flex items-center justify-center text-brand-gold text-xs">
                   <i class="fa-solid fa-award"></i>
                 </span>
               </div>
               <div class="mt-2.5">
                 <span class="text-2xl font-extrabold font-heading text-brand-gold" id="stat-pending">2</span>
-                <span class="text-2xs text-slate-400 block mt-1">Met 80+ AI threshold</span>
+                <span class="text-2xs text-slate-400 block mt-1">Top 10% — Met 80+ AI threshold</span>
               </div>
             </div>
 
@@ -672,6 +672,42 @@
               </div>
               <div>
                 <textarea id="admin-portfolio-prompt" rows="8" class="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-xs font-mono text-brand-accent focus:outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 transition-all leading-relaxed"></textarea>
+              </div>
+            </div>
+
+            <!-- Resume Template Library Upload -->
+            <div class="glass-card rounded-3xl p-6 border border-slate-800 shadow-xl space-y-4">
+              <div class="flex items-center space-x-3 border-b border-slate-800 pb-4">
+                <div class="h-9 w-9 rounded-lg bg-emerald-500/10 flex items-center justify-center text-emerald-400">
+                  <i class="fa-solid fa-folder-open text-base"></i>
+                </div>
+                <div>
+                  <h3 class="text-base font-bold font-heading text-slate-200">3. Resume Template Library</h3>
+                  <p class="text-xs text-slate-400">Upload sample resumes (PDF/Word) as benchmarks. The AI Reviewer will use these templates as scoring criteria.</p>
+                </div>
+              </div>
+
+              <!-- Upload Dropzone for Multiple Files -->
+              <div class="relative border-2 border-dashed border-slate-800 hover:border-emerald-500/50 bg-slate-950/50 rounded-xl p-6 text-center cursor-pointer transition-all duration-300 group" id="templateDropzone" onclick="document.getElementById('template-files').click()">
+                <input type="file" id="template-files" class="hidden" accept=".pdf,.doc,.docx" multiple onchange="handleTemplateUpload(event)">
+                <div class="space-y-2">
+                  <div class="text-slate-500 group-hover:text-emerald-400 transition-colors">
+                    <i class="fa-solid fa-cloud-arrow-up text-3xl animate-bounce"></i>
+                  </div>
+                  <p class="text-sm font-semibold text-slate-300">Click or drag & drop template files here</p>
+                  <p class="text-xs text-slate-500">Supports PDF, DOC, DOCX — Multiple files allowed</p>
+                </div>
+              </div>
+
+              <!-- Uploaded Template File List -->
+              <div id="templateFileList" class="space-y-2 hidden">
+                <div class="flex items-center justify-between">
+                  <span class="text-2xs font-extrabold tracking-wider text-slate-400 uppercase">Uploaded Templates</span>
+                  <button onclick="clearAllTemplates()" class="text-2xs text-brand-accent hover:text-red-400 font-semibold transition-colors">
+                    <i class="fa-solid fa-trash-can mr-1"></i>Clear All
+                  </button>
+                </div>
+                <div id="templateItems" class="space-y-1.5"></div>
               </div>
             </div>
 
@@ -1234,12 +1270,12 @@
       const bannerText = document.getElementById('resultStatusText');
 
       if (student.aiScore >= 80) {
-        statusBadge.innerText = "TOP 20% - ELITE VETTED";
+        statusBadge.innerText = "TOP 10% - ELITE VETTED";
         statusBadge.className = "inline-flex items-center px-2.5 py-1 rounded-full text-2xs font-extrabold tracking-wider uppercase border border-brand-gold bg-brand-gold/10 text-brand-gold";
         banner.className = "rounded-xl p-3 text-xs flex items-start space-x-2 border border-brand-gold/20 bg-brand-gold/5 text-brand-gold";
         bannerText.innerHTML = `<strong>Elite Rating Achieved!</strong> You rank in the top tier of VLU graduates. Your dynamic profile has been highlighted on the Course Convenor's Roster.`;
         document.getElementById('badgeRevealContainer').classList.remove('hidden');
-        document.getElementById('student-badge-badge-state').innerHTML = `<i class="fa-solid fa-award text-brand-gold text-lg mb-1 animate-pulse"></i><span class="text-brand-gold text-[10px] uppercase font-extrabold">Top 20% Elite</span>`;
+        document.getElementById('student-badge-badge-state').innerHTML = `<i class="fa-solid fa-award text-brand-gold text-lg mb-1 animate-pulse"></i><span class="text-brand-gold text-[10px] uppercase font-extrabold">Top 10% Elite</span>`;
       } else {
         statusBadge.innerText = "STANDARD PROFILE VETTED";
         statusBadge.className = "inline-flex items-center px-2.5 py-1 rounded-full text-2xs font-extrabold tracking-wider uppercase border border-slate-700 bg-slate-800/40 text-slate-350";
@@ -1297,7 +1333,7 @@
 
           let statusCol = "";
           if (student.aiScore >= 80) {
-            statusCol = `<span class="inline-flex items-center px-2 py-0.5 rounded text-2xs font-extrabold bg-brand-gold/10 text-brand-gold border border-brand-gold/20 shadow-sm shadow-brand-gold/5"><i class="fa-solid fa-award mr-1 animate-pulse"></i> Top 20% Elite</span>`;
+            statusCol = `<span class="inline-flex items-center px-2 py-0.5 rounded text-2xs font-extrabold bg-brand-gold/10 text-brand-gold border border-brand-gold/20 shadow-sm shadow-brand-gold/5"><i class="fa-solid fa-award mr-1 animate-pulse"></i> Top 10% Elite</span>`;
           } else {
             statusCol = `<span class="inline-flex items-center px-2 py-0.5 rounded text-2xs font-extrabold bg-slate-950 text-slate-500 border border-slate-850">Standard Profile</span>`;
           }
@@ -1378,10 +1414,96 @@
       renderConvenorTable();
     }
 
+    /* --- ADMIN TEMPLATE UPLOAD LOGIC --- */
+
+    // In-memory store for uploaded template file references
+    let uploadedTemplates = [];
+
+    function loadTemplateList() {
+      const stored = localStorage.getItem('vlu_ai_templates');
+      if (stored) {
+        uploadedTemplates = JSON.parse(stored);
+        renderTemplateList();
+      }
+    }
+
+    function saveTemplateList() {
+      localStorage.setItem('vlu_ai_templates', JSON.stringify(uploadedTemplates));
+    }
+
+    function handleTemplateUpload(event) {
+      const files = event.target.files;
+      if (!files || files.length === 0) return;
+
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        // Avoid duplicates by name
+        if (!uploadedTemplates.find(t => t.name === file.name)) {
+          uploadedTemplates.push({
+            name: file.name,
+            size: (file.size / 1024).toFixed(1) + ' KB',
+            type: file.name.endsWith('.pdf') ? 'pdf' : 'word',
+            uploadedAt: new Date().toLocaleString()
+          });
+        }
+      }
+
+      saveTemplateList();
+      renderTemplateList();
+
+      // Reset file input so same file can be re-selected
+      event.target.value = '';
+    }
+
+    function renderTemplateList() {
+      const container = document.getElementById('templateFileList');
+      const items = document.getElementById('templateItems');
+
+      if (uploadedTemplates.length === 0) {
+        container.classList.add('hidden');
+        return;
+      }
+
+      container.classList.remove('hidden');
+      items.innerHTML = '';
+
+      uploadedTemplates.forEach((tpl, index) => {
+        const iconClass = tpl.type === 'pdf' ? 'fa-file-pdf text-red-400' : 'fa-file-word text-blue-400';
+        const row = document.createElement('div');
+        row.className = 'flex items-center justify-between bg-slate-950/60 border border-slate-800 rounded-lg px-3 py-2.5 group hover:border-emerald-500/30 transition-all';
+        row.innerHTML = `
+          <div class="flex items-center space-x-3 min-w-0">
+            <i class="fa-solid ${iconClass} text-base shrink-0"></i>
+            <div class="min-w-0">
+              <p class="text-xs font-semibold text-slate-200 truncate">${tpl.name}</p>
+              <p class="text-[10px] text-slate-500">${tpl.size} · Uploaded ${tpl.uploadedAt}</p>
+            </div>
+          </div>
+          <button onclick="removeTemplate(${index})" class="text-slate-600 hover:text-red-400 transition-colors ml-3 shrink-0" title="Remove template">
+            <i class="fa-solid fa-xmark text-sm"></i>
+          </button>
+        `;
+        items.appendChild(row);
+      });
+    }
+
+    function removeTemplate(index) {
+      uploadedTemplates.splice(index, 1);
+      saveTemplateList();
+      renderTemplateList();
+    }
+
+    function clearAllTemplates() {
+      uploadedTemplates = [];
+      saveTemplateList();
+      renderTemplateList();
+    }
+
 
     // Run application on start
     window.addEventListener('DOMContentLoaded', () => {
       initDatabase();
+      loadTemplateList();
     });
 
   </script>
