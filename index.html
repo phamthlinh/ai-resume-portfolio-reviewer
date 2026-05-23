@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Agency-Ready Portal | AI Resume & Portfolio Reviewer</title>
+  <title>AI Reviewer | Resume & Portfolio Vetting</title>
   <!-- SEO & Meta Tags -->
   <meta name="description" content="AI-driven resume and portfolio screening portal. Empowering university students to achieve elite industry standards and helping course convenors monitor submissions.">
   <meta name="keywords" content="AI Resume Vetting, Portfolio Screening, Course Convenor Review, Portfolio Verification, Top 20% Elite">
@@ -159,8 +159,8 @@
         <i class="fa-solid fa-graduation-cap text-white text-lg"></i>
       </div>
       <div>
-        <h1 class="text-xl font-bold tracking-tight font-heading bg-gradient-to-r from-white via-indigo-200 to-brand-400 bg-clip-text text-transparent">Agency-Ready Portal</h1>
-        <p class="text-xs text-slate-400 font-medium">Next-Gen AI Portfolio Vetting</p>
+        <h1 class="text-xl font-bold tracking-tight font-heading bg-gradient-to-r from-white via-indigo-200 to-brand-400 bg-clip-text text-transparent">AI Reviewer</h1>
+        <p class="text-xs text-slate-400 font-medium">Next-Gen AI Resume & Portfolio Evaluation</p>
       </div>
     </div>
 
@@ -171,9 +171,13 @@
         <i class="fa-solid fa-user-graduate"></i>
         <span>Student</span>
       </button>
-      <button onclick="switchRole('admin')" id="roleBtn-admin" class="role-btn px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center space-x-1.5 transition-all duration-200 text-slate-400 hover:text-slate-200 hover:bg-slate-800">
+      <button onclick="switchRole('convenor')" id="roleBtn-convenor" class="role-btn px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center space-x-1.5 transition-all duration-200 text-slate-400 hover:text-slate-200 hover:bg-slate-800">
         <i class="fa-solid fa-chalkboard-user"></i>
         <span>Course Convenor</span>
+      </button>
+      <button onclick="switchRole('admin')" id="roleBtn-admin" class="role-btn px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center space-x-1.5 transition-all duration-200 text-slate-400 hover:text-slate-200 hover:bg-slate-800">
+        <i class="fa-solid fa-gears"></i>
+        <span>System Admin</span>
       </button>
     </div>
   </header>
@@ -190,10 +194,14 @@
             <i class="fa-solid fa-laptop-code text-base"></i>
             <span>Student Workspace</span>
           </button>
-          <button onclick="switchView('convenor-portal')" id="nav-convenor-portal" class="nav-btn w-full px-4 py-3 rounded-xl text-sm font-medium flex items-center space-x-3 transition-all duration-200 text-slate-400 hover:bg-slate-800/40 hover:text-slate-200 border-l-2 border-transparent">
+          <button onclick="switchView('convenor-portal')" id="nav-convenor-portal" class="nav-btn w-full px-4 py-3 rounded-xl text-sm font-medium flex items-center space-x-3 transition-all duration-200 text-slate-400 hover:bg-slate-800/40 hover:text-slate-200 border-l-2 border-transparent hidden">
             <i class="fa-solid fa-shield-halved text-base"></i>
             <span>Vetting Dashboard</span>
             <span id="pendingBadgeCount" class="ml-auto bg-brand-accent/25 text-brand-accent text-xxs font-bold px-2 py-0.5 rounded-full border border-brand-accent/20">2</span>
+          </button>
+          <button onclick="switchView('admin-prompts')" id="nav-admin-prompts" class="nav-btn w-full px-4 py-3 rounded-xl text-sm font-medium flex items-center space-x-3 transition-all duration-200 text-slate-400 hover:bg-slate-800/40 hover:text-slate-200 border-l-2 border-transparent hidden">
+            <i class="fa-solid fa-gears text-base"></i>
+            <span>AI Prompt Manager</span>
           </button>
         </nav>
 
@@ -623,6 +631,103 @@
         </div>
       </div>
 
+      <!-- View 3: AI Prompt Manager (Admin View) -->
+      <div id="view-admin-prompts" class="view-container space-y-8 hidden">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <h2 class="text-2xl font-extrabold tracking-tight font-heading text-white">AI Prompt Configuration Engine</h2>
+            <p class="text-slate-400 text-xs mt-0.5">Customize the instructions, guidelines, and evaluation rubrics used by the AI Reviewer to score CVs and Portfolios.</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+          <!-- Column 1: Prompt editors -->
+          <div class="lg:col-span-8 space-y-6">
+            <!-- Resume Prompt Card -->
+            <div class="glass-card rounded-3xl p-6 border border-slate-800 shadow-xl space-y-4">
+              <div class="flex items-center space-x-3 border-b border-slate-800 pb-4">
+                <div class="h-9 w-9 rounded-lg bg-indigo-500/10 flex items-center justify-center text-indigo-400">
+                  <i class="fa-solid fa-file-lines text-base"></i>
+                </div>
+                <div>
+                  <h3 class="text-base font-bold font-heading text-slate-200">1. Resume Analysis Prompt Template</h3>
+                  <p class="text-xs text-slate-400">This prompt guides the AI in scanning work experiences, technical tools, and metrics.</p>
+                </div>
+              </div>
+              <div>
+                <textarea id="admin-resume-prompt" rows="8" class="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-xs font-mono text-indigo-300 focus:outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 transition-all leading-relaxed"></textarea>
+              </div>
+            </div>
+
+            <!-- Portfolio Prompt Card -->
+            <div class="glass-card rounded-3xl p-6 border border-slate-800 shadow-xl space-y-4">
+              <div class="flex items-center space-x-3 border-b border-slate-800 pb-4">
+                <div class="h-9 w-9 rounded-lg bg-brand-accent/10 flex items-center justify-center text-brand-accent">
+                  <i class="fa-solid fa-globe text-base"></i>
+                </div>
+                <div>
+                  <h3 class="text-base font-bold font-heading text-slate-200">2. Portfolio Evaluation Prompt Template</h3>
+                  <p class="text-xs text-slate-400">This prompt directs the AI to check digital layout, visual appeal, and case studies at the student's URL.</p>
+                </div>
+              </div>
+              <div>
+                <textarea id="admin-portfolio-prompt" rows="8" class="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-xs font-mono text-brand-accent focus:outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 transition-all leading-relaxed"></textarea>
+              </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex space-x-4">
+              <button onclick="saveAdminPrompts()" class="flex-grow bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-500 hover:to-emerald-600 text-white font-bold py-3.5 px-6 rounded-xl transition-all shadow-lg shadow-emerald-600/10 flex items-center justify-center space-x-2 text-sm">
+                <i class="fa-solid fa-floppy-disk"></i>
+                <span>Save Prompt Settings</span>
+              </button>
+              <button onclick="resetAdminPromptsToDefault()" class="px-5 bg-slate-900 border border-slate-800 hover:bg-slate-850 text-slate-400 hover:text-slate-200 rounded-xl text-xs font-semibold transition-all">
+                Reset to Defaults
+              </button>
+            </div>
+          </div>
+
+          <!-- Column 2: System guide and active vars -->
+          <div class="lg:col-span-4 space-y-6">
+            <div class="glass-card rounded-3xl p-6 border border-slate-800 shadow-xl space-y-4">
+              <h3 class="text-sm font-bold font-heading text-slate-250 flex items-center">
+                <i class="fa-solid fa-circle-info text-brand-gold mr-2"></i> Prompt Writing Guide
+              </h3>
+              <p class="text-xs text-slate-400 leading-relaxed">The AI Reviewer leverages these prompt contexts during evaluations. In the simulated environment, adding specific skill terms to the prompt directs the engine to actively search for them in the student's submission.</p>
+              
+              <div class="space-y-3 pt-2">
+                <div class="bg-slate-950/50 p-3 rounded-xl border border-slate-855">
+                  <span class="text-3xs font-extrabold uppercase bg-brand-500/10 text-indigo-400 px-2 py-0.5 rounded">Prompt Variables</span>
+                  <p class="text-[11px] text-slate-350 mt-1 leading-relaxed">Use placeholders like <code class="text-indigo-400 font-mono">{student_name}</code>, <code class="text-indigo-400 font-mono">{portfolio_url}</code>, or <code class="text-indigo-400 font-mono">{skills}</code>. They are dynamically replaced during evaluation.</p>
+                </div>
+
+                <div class="bg-slate-950/50 p-3 rounded-xl border border-slate-855">
+                  <span class="text-3xs font-extrabold uppercase bg-brand-gold/15 text-brand-gold px-2 py-0.5 rounded">Supported Keywords</span>
+                  <p class="text-[10px] text-slate-455 mt-1.5 leading-relaxed font-semibold">Active keywords that affect simulated scoring if included in your custom prompts:</p>
+                  <div class="flex flex-wrap gap-1 mt-1.5">
+                    <span class="px-1.5 py-0.5 bg-slate-900 border border-slate-800 rounded text-xxs font-mono text-slate-400">campaign</span>
+                    <span class="px-1.5 py-0.5 bg-slate-900 border border-slate-800 rounded text-xxs font-mono text-slate-400">lead</span>
+                    <span class="px-1.5 py-0.5 bg-slate-900 border border-slate-800 rounded text-xxs font-mono text-slate-400">manage</span>
+                    <span class="px-1.5 py-0.5 bg-slate-900 border border-slate-800 rounded text-xxs font-mono text-slate-400">organize</span>
+                    <span class="px-1.5 py-0.5 bg-slate-900 border border-slate-800 rounded text-xxs font-mono text-slate-400">roi</span>
+                    <span class="px-1.5 py-0.5 bg-slate-900 border border-slate-800 rounded text-xxs font-mono text-slate-400">verified</span>
+                    <span class="px-1.5 py-0.5 bg-slate-900 border border-slate-800 rounded text-xxs font-mono text-slate-400">conversion</span>
+                    <span class="px-1.5 py-0.5 bg-slate-900 border border-slate-800 rounded text-xxs font-mono text-slate-400">growth</span>
+                    <span class="px-1.5 py-0.5 bg-slate-900 border border-slate-800 rounded text-xxs font-mono text-slate-400">design</span>
+                    <span class="px-1.5 py-0.5 bg-slate-900 border border-slate-800 rounded text-xxs font-mono text-slate-400">figma</span>
+                    <span class="px-1.5 py-0.5 bg-slate-900 border border-slate-800 rounded text-xxs font-mono text-slate-400">client</span>
+                    <span class="px-1.5 py-0.5 bg-slate-900 border border-slate-800 rounded text-xxs font-mono text-slate-400">analytics</span>
+                    <span class="px-1.5 py-0.5 bg-slate-900 border border-slate-800 rounded text-xxs font-mono text-slate-400">seo</span>
+                    <span class="px-1.5 py-0.5 bg-slate-900 border border-slate-800 rounded text-xxs font-mono text-slate-400">coding</span>
+                    <span class="px-1.5 py-0.5 bg-slate-900 border border-slate-800 rounded text-xxs font-mono text-slate-400">react</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!-- Slide-Over Drawer for Detailed Evaluation (Hidden by Default) -->
       <div id="evaluationDrawer" class="hidden fixed inset-0 z-50 overflow-hidden" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
         <div class="absolute inset-0 overflow-hidden">
@@ -913,6 +1018,8 @@
 
       // Auto view routing based on role selection to guide the user seamlessly
       if (role === 'admin') {
+        switchView('admin-prompts');
+      } else if (role === 'convenor') {
         switchView('convenor-portal');
       } else {
         switchView('student-workspace');
@@ -936,10 +1043,10 @@
       }
 
       // Hide all panels
-      document.getElementById('view-student-workspace').classList.add('hidden');
-      document.getElementById('view-student-workspace').classList.remove('block');
-      document.getElementById('view-convenor-portal').classList.add('hidden');
-      document.getElementById('view-convenor-portal').classList.remove('block');
+      ['view-student-workspace', 'view-convenor-portal', 'view-admin-prompts'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) { el.classList.add('hidden'); el.classList.remove('block'); }
+      });
 
       // Show the selected panel
       const targetPanel = document.getElementById(`view-${viewId}`);
