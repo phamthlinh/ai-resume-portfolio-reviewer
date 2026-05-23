@@ -249,14 +249,14 @@
               <i class="fa-solid fa-sparkles mr-1.5 text-brand-accent"></i> Instant AI Evaluation
             </span>
             <h2 class="text-2xl lg:text-3xl font-extrabold tracking-tight font-heading text-white">VLU AI Portfolio & Resume Vetting Portal</h2>
-            <p class="text-slate-350 text-sm leading-relaxed">Submit your professional resume and digital portfolio below. Our AI screening algorithm will grade your corporate readiness. Score above 80 points to be featured on the Course Convenor's Elite Roster!</p>
+            <p class="text-slate-350 text-sm leading-relaxed">Submit your professional resume and digital portfolio below. Our AI screening algorithm will grade your corporate readiness. Score above 90 points to be featured on the Course Convenor's Elite Roster!</p>
           </div>
 
           <!-- Quick interactive stat cards -->
           <div class="flex gap-4 shrink-0 z-10">
             <div class="glass-card rounded-2xl p-4 flex flex-col items-center justify-center w-28 border border-white/5 shadow-lg">
               <span class="text-xs font-semibold text-slate-400 mb-1">Target Score</span>
-              <span class="text-2xl font-black text-white">80+</span>
+              <span class="text-2xl font-black text-white">90+</span>
               <span class="text-[9px] uppercase font-bold tracking-wider text-brand-400 mt-1">Top 10% Elite</span>
             </div>
             <div class="glass-card rounded-2xl p-4 flex flex-col items-center justify-center w-28 border border-white/5 shadow-lg">
@@ -324,10 +324,10 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Digital Portfolio Link</label>
+                    <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Digital Portfolio Link (Optional if PDF is uploaded)</label>
                     <div class="relative">
                       <span class="absolute left-4 top-1/2 -translate-y-1/2 text-xs text-slate-500 font-semibold">https://</span>
-                      <input type="text" id="stu-portfolio" required placeholder="huongnguyen.design" class="w-full bg-slate-950/80 border border-slate-800 rounded-xl pl-16 pr-4 py-3 text-sm text-slate-200 focus:outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 transition-all">
+                      <input type="text" id="stu-portfolio" placeholder="huongnguyen.design" class="w-full bg-slate-950/80 border border-slate-800 rounded-xl pl-16 pr-4 py-3 text-sm text-slate-200 focus:outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 transition-all">
                     </div>
                   </div>
                   <div>
@@ -343,33 +343,52 @@
 
                 <!-- Interactive File Upload Mockup Component -->
                 <div>
-                  <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Upload Resume Document (PDF / Word)</label>
-                  <div class="relative border-2 border-dashed border-slate-800 hover:border-brand-500/50 bg-slate-950/50 rounded-xl p-5 text-center cursor-pointer transition-all duration-300 group" id="dropzoneContainer" onclick="triggerFileSelect()">
-                    <input type="file" id="stu-file" class="hidden" accept=".pdf,.doc,.docx" onchange="handleFileSelected(event)">
-                    
-                    <div id="dropzoneEmpty" class="space-y-2">
-                      <div class="text-slate-500 group-hover:text-brand-400 transition-colors">
-                        <i class="fa-solid fa-cloud-arrow-up text-3xl animate-bounce"></i>
-                      </div>
-                      <p class="text-sm font-semibold text-slate-300">Drag & drop your official PDF resume here</p>
-                      <p class="text-xs text-slate-500">Supports standard formats up to 10MB (Simulated)</p>
-                    </div>
+                   <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Upload Resume Document (PDF / Word)</label>
+                   <div class="relative border-2 border-dashed border-slate-800 hover:border-brand-500/50 bg-slate-950/50 rounded-xl p-5 text-center cursor-pointer transition-all group" id="dropzoneContainer" onclick="triggerFileSelect()">
+                     <input type="file" id="stu-file" class="hidden" accept=".pdf,.doc,.docx" onchange="handleFileSelected(event)" />
+                     <div id="dropzoneEmpty" class="space-y-2">
+                       <div class="text-slate-500 group-hover:text-brand-400 transition-colors">
+                         <i class="fa-solid fa-cloud-arrow-up text-3xl animate-bounce"></i>
+                       </div>
+                       <p class="text-sm font-semibold text-slate-300">Drag &amp; drop your official PDF resume here</p>
+                       <p class="text-xs text-slate-500">Supports standard formats up to 10MB (Simulated)</p>
+                     </div>
 
-                    <div id="dropzoneSuccess" class="hidden space-y-2 flex flex-col items-center">
-                      <div class="h-10 w-10 bg-emerald-500/10 rounded-full flex items-center justify-center text-emerald-400">
-                        <i class="fa-solid fa-file-circle-check text-lg"></i>
-                      </div>
-                      <p id="uploadedFileName" class="text-sm font-semibold text-emerald-400">resume_vlang_pr.pdf</p>
-                      <p class="text-xs text-slate-500 flex items-center"><span class="h-2 w-2 rounded-full bg-emerald-400 mr-1.5 animate-pulse"></span>Successfully Mocked Upload (480 KB)</p>
-                    </div>
-                  </div>
-                </div>
+                     <div id="dropzoneSuccess" class="hidden space-y-2 flex flex-col items-center">
+                       <div class="h-10 w-10 bg-emerald-500/10 rounded-full flex items-center justify-center text-emerald-400">
+                         <i class="fa-solid fa-file-circle-check text-lg"></i>
+                       </div>
+                       <p id="uploadedFileName" class="text-sm font-semibold text-emerald-400">resume_vlang_pr.pdf</p>
+                       <p class="text-xs text-slate-500 flex items-center"><span class="h-2 w-2 rounded-full bg-emerald-400 mr-1.5 animate-pulse"></span>Successfully Mocked Upload (480 KB)</p>
+                     </div>
+                   </div>
+                 </div>
 
-                <!-- Action Button -->
-                <button type="submit" class="w-full bg-gradient-to-r from-brand-600 to-brand-700 hover:from-brand-500 hover:to-brand-600 text-white font-bold py-3.5 px-6 rounded-xl transition-all shadow-lg shadow-brand-600/10 flex items-center justify-center space-x-2 text-sm">
-                  <i class="fa-solid fa-wand-magic-sparkles"></i>
-                  <span>Submit & Launch AI Vetting Scanner</span>
-                </button>
+                 <!-- New Portfolio PDF Upload -->
+                 <div class="mt-4">
+                   <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Upload Portfolio PDF (optional)</label>
+                   <div class="relative border-2 border-dashed border-slate-800 hover:border-brand-500/50 bg-slate-950/50 rounded-xl p-5 text-center cursor-pointer transition-all group" id="portfolioDropzone" onclick="triggerPortfolioSelect()">
+                     <input type="file" id="stu-portfolio-file" class="hidden" accept=".pdf" onchange="handlePortfolioUpload(event)" />
+                     <div id="portfolioDropzoneEmpty" class="space-y-2">
+                       <div class="text-slate-500 group-hover:text-brand-400 transition-colors">
+                         <i class="fa-solid fa-cloud-arrow-up text-3xl animate-bounce"></i>
+                       </div>
+                       <p class="text-sm font-semibold text-slate-300">Drag &amp; drop your portfolio PDF here</p>
+                       <p class="text-xs text-slate-500">Supports PDF up to 10MB (Simulated)</p>
+                     </div>
+                     <div id="portfolioDropzoneSuccess" class="hidden space-y-2 flex flex-col items-center">
+                       <div class="h-10 w-10 bg-emerald-500/10 rounded-full flex items-center justify-center text-emerald-400">
+                         <i class="fa-solid fa-file-circle-check text-lg"></i>
+                       </div>
+                       <p id="uploadedPortfolioName" class="text-sm font-semibold text-emerald-400">portfolio.pdf</p>
+                       <p class="text-xs text-slate-500 flex items-center"><span class="h-2 w-2 rounded-full bg-emerald-400 mr-1.5 animate-pulse"></span>Portfolio uploaded</p>
+                     </div>
+                   </div>
+                 </div>
+                 <button type="submit" class="w-full bg-gradient-to-r from-brand-600 to-brand-700 hover:from-brand-500 hover:to-brand-600 text-white font-bold py-3.5 px-6 rounded-xl transition-all shadow-lg shadow-brand-600/10 flex items-center justify-center space-x-2 text-sm">
+                   <i class="fa-solid fa-wand-magic-sparkles"></i>
+                   <span>Submit & Launch AI Vetting Scanner</span>
+                 </button>
               </form>
 
               <!-- Simulated AI Scanner Screen Overlay (Hidden by Default) -->
@@ -534,8 +553,8 @@
               </div>
               <select id="convenorFilterStatus" onchange="applyFilters()" class="bg-slate-900/90 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-300 focus:outline-none focus:border-brand-500 transition-all">
                 <option value="ALL">All Scores</option>
-                <option value="ELITE">Top 10% Elite Vetting (80+)</option>
-                <option value="LOW">Standard Performance (<80)</option>
+                <option value="ELITE">Top 10% Elite Vetting (90+)</option>
+                <option value="LOW">Standard Performance (<90)</option>
               </select>
             </div>
           </div>
@@ -564,7 +583,7 @@
               </div>
               <div class="mt-2.5">
                 <span class="text-2xl font-extrabold font-heading text-brand-gold" id="stat-pending">2</span>
-                <span class="text-2xs text-slate-400 block mt-1">Top 10% — Met 80+ AI threshold</span>
+                <span class="text-2xs text-slate-400 block mt-1">Top 10% — Met 90+ AI threshold</span>
               </div>
             </div>
 
@@ -725,6 +744,21 @@
 
           <!-- Column 2: System guide and active vars -->
           <div class="lg:col-span-4 space-y-6">
+            <!-- Gemini API Key Card -->
+            <div class="glass-card rounded-3xl p-6 border border-slate-800 shadow-xl space-y-4">
+              <h3 class="text-sm font-bold font-heading text-slate-250 flex items-center">
+                <i class="fa-solid fa-key text-brand-gold mr-2"></i> Gemini API Key (Real AI)
+              </h3>
+              <p class="text-xs text-slate-400 leading-relaxed">Enter your Gemini API Key to switch from simulated evaluations to actual Google Gemini 1.5 AI processing. Saved only in your browser's local storage.</p>
+              <div>
+                <input type="password" id="admin-gemini-key" placeholder="AIzaSy..." class="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 text-xs text-slate-200 focus:outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 transition-all font-mono">
+              </div>
+              <div class="flex items-center space-x-2 pt-1">
+                <span class="h-2 w-2 rounded-full bg-slate-500" id="apiKeyStatusDot"></span>
+                <span class="text-[10px] uppercase font-bold tracking-wider text-slate-500" id="apiKeyStatusText">Simulated Mode Active</span>
+              </div>
+            </div>
+
             <div class="glass-card rounded-3xl p-6 border border-slate-800 shadow-xl space-y-4">
               <h3 class="text-sm font-bold font-heading text-slate-250 flex items-center">
                 <i class="fa-solid fa-circle-info text-brand-gold mr-2"></i> Prompt Writing Guide
@@ -892,7 +926,7 @@
         aiStrength: "Strong digital portfolio showing actual, verified campaign designs for local brands with measurable KPIs and ROI results.",
         aiImprovement: "Resume layout is slightly text-heavy in the professional experience section; bullet points need to lead with core performance metrics.",
         aiNextStep: "Condense the introductory professional summary and lead your experience section directly with the 25% engagement increase metric.",
-        status: "Elite Vetted", // Score >= 80, highlighted
+        status: "Standard Vetted", // Score < 90
         badgeUnlocked: false,
         submitDate: "2026-05-18"
       },
@@ -907,7 +941,7 @@
         aiStrength: "Outstanding application of digital marketing frameworks (SOSTAC). Exceptionally crisp copywriting and visual hierarchy throughout the digital portfolio.",
         aiImprovement: "Needs to highlight technical web analytics tools (Google Analytics, SEO SEMrush, Hotjar) more prominently in the core skills sidebar.",
         aiNextStep: "Insert specific high-impact search keywords into your portfolio project case descriptions to prove search intent expertise.",
-        status: "Elite Vetted", // Score >= 80, highlighted
+        status: "Elite Vetted", // Score >= 90, highlighted
         badgeUnlocked: true,
         submitDate: "2026-05-17"
       },
@@ -922,7 +956,7 @@
         aiStrength: "Visually striking multimedia portfolio featuring exceptionally high-quality 3D render designs, character assets, and vector illustrations.",
         aiImprovement: "Lacks structured project case studies; fails to clearly explain the underlying business objectives, UX methodologies, or client design constraints.",
         aiNextStep: "Structure at least two portfolio projects using a case study format (Problem, Solution, My Role, Visual Iterations) to prove design thinking.",
-        status: "Standard Vetted", // Score < 80
+        status: "Standard Vetted", // Score < 90
         badgeUnlocked: false,
         submitDate: "2026-05-19"
       }
@@ -997,6 +1031,11 @@
       document.getElementById('dropzoneEmpty').classList.add('hidden');
       document.getElementById('dropzoneSuccess').classList.remove('hidden');
 
+      // Reset the portfolio PDF file upload representational state
+      document.getElementById('stu-portfolio-file').value = '';
+      document.getElementById('portfolioDropzoneSuccess').classList.add('hidden');
+      document.getElementById('portfolioDropzoneEmpty').classList.remove('hidden');
+
       // Subtle pulse highlight effect on loaded fields
       const formFields = ['stu-name', 'stu-portfolio', 'stu-skills', 'stu-resume'];
       formFields.forEach(fId => {
@@ -1011,7 +1050,7 @@
     // Dynamic UI Stat Counter updates
     function refreshCounters() {
       const total = state.students.length;
-      const elite = state.students.filter(s => s.aiScore >= 80).length;
+      const elite = state.students.filter(s => s.aiScore >= 90).length;
       const standard = total - elite;
       
       // Calculate active average AI Score
@@ -1113,6 +1152,19 @@
       }
     }
 
+    function triggerPortfolioSelect() {
+      document.getElementById('stu-portfolio-file').click();
+    }
+
+    function handlePortfolioUpload(event) {
+      const file = event.target.files[0];
+      if (file) {
+        document.getElementById('uploadedPortfolioName').innerText = file.name;
+        document.getElementById('portfolioDropzoneEmpty').classList.add('hidden');
+        document.getElementById('portfolioDropzoneSuccess').classList.remove('hidden');
+      }
+    }
+
     // Portfolio & Resume AI evaluation submission
     function handlePortfolioSubmit(event) {
       event.preventDefault();
@@ -1123,8 +1175,11 @@
       const skills = document.getElementById('stu-skills').value.trim();
       const resume = document.getElementById('stu-resume').value.trim();
 
-      if (!name || !portfolio || !skills || !resume) {
-        alert("Please fill in all the required portfolio fields to continue.");
+      const portfolioFile = document.getElementById('stu-portfolio-file').files[0];
+      const portfolioFileName = portfolioFile ? portfolioFile.name : null;
+
+      if (!name || (!portfolio && !portfolioFileName) || !skills || !resume) {
+        alert("Please provide either a Digital Portfolio Link or upload a Portfolio PDF to continue.");
         return;
       }
 
@@ -1159,54 +1214,119 @@
 
         if (progress >= 100) {
           clearInterval(interval);
-          setTimeout(() => {
-            overlay.classList.add('hidden');
-            generateAiEvaluationResult(name, major, portfolio, skills, resume);
-          }, 600);
+          consoleLog.innerText = "Gemini AI is analyzing your application...";
+          generateAiEvaluationResult(name, major, portfolio, skills, resume);
         }
       }, 100);
     }
 
     // Smart simulated AI generator that reacts directly to student input parameters
-    function generateAiEvaluationResult(name, major, portfolio, skills, resume) {
-      // Basic AI heuristic calculation based on word density and keyword matches
-      let rawScore = 70; // baseline
-      
-      // Keywords that increment readiness
-      const agencyKeywords = ["campaign", "lead", "manage", "organize", "roi", "verified", "conversion", "growth", "design", "figma", "client", "analytics", "seo"];
-      const lowerResume = resume.toLowerCase();
-      
-      agencyKeywords.forEach(kw => {
-        if (lowerResume.includes(kw)) {
-          rawScore += 3.5;
-        }
-      });
-
-      // Cap at 98 for realistic ceiling
-      const finalScore = Math.min(Math.round(rawScore), 98);
-      
-      // Formulate feedback assets based on major & skills
-      let strength = `Demonstrates clear hands-on competence in ${skills.split(',')[0] || 'primary technical skills'}. Portfolio links check out.`;
-      let improvement = "Could frame outcomes in a more data-driven manner. Experiences need standard quantitative values.";
-      let nextStep = "Quantify at least three resume bullets with clear metrics (e.g., increased engagement, optimized budget).";
-
-      if (major.includes("PR")) {
-        strength = `Excellent PR framing and messaging context inside the portfolio. Solid grasp of communication strategies.`;
-        improvement = "Needs to display active relationships or simulated pitches with media or key creators in case studies.";
-        nextStep = "Structure a mock PR press kit within your design assets to showcase end-to-end media planning capabilities.";
-      } else if (major.includes("Marketing")) {
-        strength = `Good understanding of performance loops and multi-channel campaign planning rules.`;
-        improvement = "Fails to showcase specific audience segment maps or digital custom conversion tracking setups.";
-        nextStep = "Insert a detailed SOSTAC client funnel mockup demonstrating traffic, retention, and final brand conversion paths.";
-      } else if (major.includes("Design")) {
-        strength = `High aesthetic quality in structural visual hierarchy. Visual assets show creative maturity.`;
-        improvement = "Lacks descriptive process work; does not capture research phases, wireframes, or startup briefs.";
-        nextStep = "Add side-by-side comparative graphics showing initial concepts versus finalized high-fidelity layouts.";
+    function cleanJsonResponse(text) {
+      let cleaned = text.trim();
+      if (cleaned.startsWith("```")) {
+        cleaned = cleaned.replace(/^```json\s*/i, "").replace(/```$/, "").trim();
       }
+      return cleaned;
+    }
+
+    // Smart AI generator that calls Gemini if API key is set, otherwise falls back to simulated scoring
+    async function generateAiEvaluationResult(name, major, portfolio, skills, resume) {
+      const apiKey = localStorage.getItem('vlu_gemini_api_key') || '';
+      
+      let finalScore = 70;
+      let strength = "";
+      let improvement = "";
+      let nextStep = "";
+
+      const pfFile = document.getElementById('stu-portfolio-file').files[0];
+      const portfolioFile = pfFile ? pfFile.name : null;
+
+      if (apiKey) {
+        try {
+          // Dynamic ESM import of the Google Generative AI library
+          const { GoogleGenerativeAI } = await import("https://esm.run/@google/generative-ai");
+          const genAI = new GoogleGenerativeAI(apiKey);
+          const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
+          const prompt = `
+            Evaluate the corporate readiness for this student based on these inputs:
+            - Student Name: ${name}
+            - Academic Major: ${major}
+            - Key Skills: ${skills}
+            - Digital Portfolio Link: ${portfolio ? "https://" + portfolio.replace('https://', '').replace('http://', '') : "None (PDF portfolio uploaded)"}
+            - Portfolio PDF Filename: ${portfolioFile || "None"}
+            - Resume Text Summary: ${resume}
+            
+            Using the Custom Resume Evaluation Guidelines:
+            "${localStorage.getItem('vlu_admin_resume_prompt') || defaultResumePrompt}"
+
+            And the Custom Portfolio Evaluation Guidelines:
+            "${localStorage.getItem('vlu_admin_portfolio_prompt') || defaultPortfolioPrompt}"
+
+            Respond ONLY with a JSON object in this exact schema (no additional keys, no Markdown wrap, just pure JSON):
+            {
+              "score": 93, // integer between 50 and 98 based on your rubric
+              "strength": "One specific key strength found in their profile",
+              "improvement": "One specific key area of improvement",
+              "nextStep": "One actionable next step to boost their readiness"
+            }
+          `;
+
+          const result = await model.generateContent(prompt);
+          const responseText = result.response.text();
+          const cleanText = cleanJsonResponse(responseText);
+          const aiData = JSON.parse(cleanText);
+
+          finalScore = aiData.score || 75;
+          strength = aiData.strength || "Completed submission.";
+          improvement = aiData.improvement || "No specific details.";
+          nextStep = aiData.nextStep || "Review recommendations.";
+
+        } catch (error) {
+          console.error("Gemini API Error:", error);
+          alert("Gemini AI evaluation failed. Falling back to Simulated Heuristic scoring. Error: " + error.message);
+          strength = ""; // force fallback
+        }
+      }
+
+      // Fallback/Simulated Heuristic logic if API key is not present or if call fails
+      if (!apiKey || strength === "") {
+        let rawScore = 70; // baseline
+        const agencyKeywords = ["campaign", "lead", "manage", "organize", "roi", "verified", "conversion", "growth", "design", "figma", "client", "analytics", "seo"];
+        const lowerResume = resume.toLowerCase();
+        
+        agencyKeywords.forEach(kw => {
+          if (lowerResume.includes(kw)) {
+            rawScore += 3.5;
+          }
+        });
+
+        finalScore = Math.min(Math.round(rawScore), 98);
+        strength = `Demonstrates clear hands-on competence in ${skills.split(',')[0] || 'primary technical skills'}. Portfolio links check out.`;
+        improvement = "Could frame outcomes in a more data-driven manner. Experiences need standard quantitative values.";
+        nextStep = "Quantify at least three resume bullets with clear metrics (e.g., increased engagement, optimized budget).";
+
+        if (major.includes("PR")) {
+          strength = `Excellent PR framing and messaging context inside the portfolio. Solid grasp of communication strategies.`;
+          improvement = "Needs to display active relationships or simulated pitches with media or key creators in case studies.";
+          nextStep = "Structure a mock PR press kit within your design assets to showcase end-to-end media planning capabilities.";
+        } else if (major.includes("Marketing")) {
+          strength = `Good understanding of performance loops and multi-channel campaign planning rules.`;
+          improvement = "Fails to showcase specific audience segment maps or digital custom conversion tracking setups.";
+          nextStep = "Insert a detailed SOSTAC client funnel mockup demonstrating traffic, retention, and final brand conversion paths.";
+        } else if (major.includes("Design")) {
+          strength = `High aesthetic quality in structural visual hierarchy. Visual assets show creative maturity.`;
+          improvement = "Lacks descriptive process work; does not capture research phases, wireframes, or startup briefs.";
+          nextStep = "Add side-by-side comparative graphics showing initial concepts versus finalized high-fidelity layouts.";
+        }
+      }
+
+      // Hide neural scanner overlay after completion
+      document.getElementById('aiScannerOverlay').classList.add('hidden');
 
       // Determine final vetted status
       let finalStatus = "Standard Vetted";
-      if (finalScore >= 80) {
+      if (finalScore >= 90) {
         finalStatus = "Elite Vetted";
       }
 
@@ -1215,7 +1335,8 @@
         id: state.students.length + 1,
         name: name,
         major: major,
-        portfolioUrl: "https://" + portfolio.replace('https://', '').replace('http://', ''),
+        portfolioUrl: portfolio ? ("https://" + portfolio.replace('https://', '').replace('http://', '')) : "",
+        portfolioFile: portfolioFile,
         skills: skills,
         resumeText: resume,
         aiScore: finalScore,
@@ -1223,7 +1344,7 @@
         aiImprovement: improvement,
         aiNextStep: nextStep,
         status: finalStatus,
-        badgeUnlocked: finalScore >= 80,
+        badgeUnlocked: finalScore >= 90,
         submitDate: new Date().toISOString().split('T')[0]
       };
 
@@ -1233,8 +1354,8 @@
       // Show student result card immediately
       renderStudentResultCard(newStudent);
 
-      // Trigger satisfying confetti blast if student achieves Elite Top 20% status!
-      if (finalScore >= 80) {
+      // Trigger satisfying confetti blast if student achieves Elite status!
+      if (finalScore >= 90) {
         confetti({
           particleCount: 120,
           spread: 70,
@@ -1258,7 +1379,7 @@
       ring.setAttribute('stroke-dasharray', `${student.aiScore}, 100`);
 
       // Modify ring color depending on score thresholds
-      if (student.aiScore >= 80) {
+      if (student.aiScore >= 90) {
         ring.className.baseVal = "text-brand-gold transition-all duration-1000 ease-out";
       } else {
         ring.className.baseVal = "text-indigo-400 transition-all duration-1000 ease-out";
@@ -1269,7 +1390,7 @@
       const banner = document.getElementById('resultStatusBanner');
       const bannerText = document.getElementById('resultStatusText');
 
-      if (student.aiScore >= 80) {
+      if (student.aiScore >= 90) {
         statusBadge.innerText = "TOP 10% - ELITE VETTED";
         statusBadge.className = "inline-flex items-center px-2.5 py-1 rounded-full text-2xs font-extrabold tracking-wider uppercase border border-brand-gold bg-brand-gold/10 text-brand-gold";
         banner.className = "rounded-xl p-3 text-xs flex items-start space-x-2 border border-brand-gold/20 bg-brand-gold/5 text-brand-gold";
@@ -1280,7 +1401,7 @@
         statusBadge.innerText = "STANDARD PROFILE VETTED";
         statusBadge.className = "inline-flex items-center px-2.5 py-1 rounded-full text-2xs font-extrabold tracking-wider uppercase border border-slate-700 bg-slate-800/40 text-slate-350";
         banner.className = "rounded-xl p-3 text-xs flex items-start space-x-2 border border-slate-800 bg-slate-900/50 text-slate-400";
-        bannerText.innerHTML = `<strong>Vetting Completed.</strong> Your profile has been logged on the roster. Review the optimization recommendations below to increase your score past 80 points.`;
+        bannerText.innerHTML = `<strong>Vetting Completed.</strong> Your profile has been logged on the roster. Review the optimization recommendations below to increase your score past 90 points.`;
         document.getElementById('badgeRevealContainer').classList.add('hidden');
         document.getElementById('student-badge-badge-state').innerHTML = `<i class="fa-solid fa-check text-slate-400 text-base mb-1"></i><span class="text-slate-400 text-[10px]">Standard Vetted</span>`;
       }
@@ -1309,9 +1430,9 @@
         
         let matchesStatus = true;
         if (statusFilter === 'ELITE') {
-          matchesStatus = student.aiScore >= 80;
+          matchesStatus = student.aiScore >= 90;
         } else if (statusFilter === 'LOW') {
-          matchesStatus = student.aiScore < 80;
+          matchesStatus = student.aiScore < 90;
         }
 
         return matchesSearch && matchesStatus;
@@ -1332,10 +1453,19 @@
           else scoreBadgeColor = "bg-slate-900 text-slate-500 border border-slate-800";
 
           let statusCol = "";
-          if (student.aiScore >= 80) {
+          if (student.aiScore >= 90) {
             statusCol = `<span class="inline-flex items-center px-2 py-0.5 rounded text-2xs font-extrabold bg-brand-gold/10 text-brand-gold border border-brand-gold/20 shadow-sm shadow-brand-gold/5"><i class="fa-solid fa-award mr-1 animate-pulse"></i> Top 10% Elite</span>`;
           } else {
             statusCol = `<span class="inline-flex items-center px-2 py-0.5 rounded text-2xs font-extrabold bg-slate-950 text-slate-500 border border-slate-850">Standard Profile</span>`;
+          }
+
+          let portfolioHtml = "";
+          if (student.portfolioFile) {
+            portfolioHtml = `<span class="text-emerald-400 text-[10px] flex items-center mt-0.5" title="${student.portfolioFile}"><i class="fa-solid fa-file-pdf mr-1 text-emerald-500"></i>PDF: ${student.portfolioFile.substring(0, 15)}${student.portfolioFile.length > 15 ? '...' : ''}</span>`;
+          } else if (student.portfolioUrl && student.portfolioUrl !== "https://") {
+            portfolioHtml = `<a href="${student.portfolioUrl}" target="_blank" class="text-slate-400 hover:text-brand-300 text-[10px] flex items-center mt-0.5"><i class="fa-solid fa-link mr-1"></i>Portfolio Site</a>`;
+          } else {
+            portfolioHtml = `<span class="text-slate-500 text-[10px] italic flex items-center mt-0.5">No Portfolio</span>`;
           }
 
           tr.innerHTML = `
@@ -1346,7 +1476,7 @@
                 </div>
                 <div>
                   <span class="font-bold text-slate-100 block">${student.name}</span>
-                  <a href="${student.portfolioUrl}" target="_blank" class="text-slate-400 hover:text-brand-300 text-[10px] flex items-center"><i class="fa-solid fa-link mr-1"></i>Portfolio Site</a>
+                  ${portfolioHtml}
                 </div>
               </div>
             </td>
@@ -1378,7 +1508,27 @@
       document.getElementById('drawerStudentName').innerText = student.name;
       document.getElementById('drawerStudentMajor').innerText = student.major;
       document.getElementById('drawerStuId').innerText = `#${student.id}`;
-      document.getElementById('drawerPortfolioLink').href = student.portfolioUrl;
+      // Set portfolio details dynamically in the drawer
+      const linkEl = document.getElementById('drawerPortfolioLink');
+      if (student.portfolioFile) {
+        linkEl.href = '#';
+        linkEl.innerHTML = `<i class="fa-solid fa-file-pdf mr-1.5 text-emerald-450"></i>PDF: ${student.portfolioFile}`;
+        linkEl.removeAttribute('target');
+        linkEl.onclick = (e) => {
+          e.preventDefault();
+          alert("Simulated: Opening uploaded Portfolio PDF - " + student.portfolioFile);
+        };
+      } else if (student.portfolioUrl && student.portfolioUrl !== "https://") {
+        linkEl.href = student.portfolioUrl;
+        linkEl.innerHTML = `Visit Portfolio Website`;
+        linkEl.setAttribute('target', '_blank');
+        linkEl.onclick = null;
+      } else {
+        linkEl.href = '#';
+        linkEl.innerHTML = `No Portfolio Provided`;
+        linkEl.removeAttribute('target');
+        linkEl.onclick = (e) => e.preventDefault();
+      }
       document.getElementById('drawerSubmitDate').innerText = student.submitDate;
       document.getElementById('drawerScoreText').innerText = student.aiScore;
 
@@ -1500,10 +1650,71 @@
     }
 
 
+    /* --- ADMIN PROMPTS & GEMINI API KEY MANAGEMENT --- */
+    const defaultResumePrompt = "You are an expert HR and Career Vetting AI Reviewer. Score the student's resume from 50 to 98 points based on their achievements, metrics, technical skills, and clarity of text summary.";
+    const defaultPortfolioPrompt = "You are an expert design and marketing portfolio auditor. Score the student's digital portfolio from 50 to 98 points based on case studies, structure, visual appeal, and responsiveness.";
+
+    function loadAdminPrompts() {
+      const resumePrompt = localStorage.getItem('vlu_admin_resume_prompt') || defaultResumePrompt;
+      const portfolioPrompt = localStorage.getItem('vlu_admin_portfolio_prompt') || defaultPortfolioPrompt;
+      const apiKey = localStorage.getItem('vlu_gemini_api_key') || '';
+
+      document.getElementById('admin-resume-prompt').value = resumePrompt;
+      document.getElementById('admin-portfolio-prompt').value = portfolioPrompt;
+      document.getElementById('admin-gemini-key').value = apiKey;
+
+      updateApiKeyStatus();
+    }
+
+    function saveAdminPrompts() {
+      const resumePrompt = document.getElementById('admin-resume-prompt').value.trim();
+      const portfolioPrompt = document.getElementById('admin-portfolio-prompt').value.trim();
+      const apiKey = document.getElementById('admin-gemini-key').value.trim();
+
+      localStorage.setItem('vlu_admin_resume_prompt', resumePrompt);
+      localStorage.setItem('vlu_admin_portfolio_prompt', portfolioPrompt);
+      if (apiKey) {
+        localStorage.setItem('vlu_gemini_api_key', apiKey);
+      } else {
+        localStorage.removeItem('vlu_gemini_api_key');
+      }
+
+      updateApiKeyStatus();
+      alert("AI and Prompt settings saved successfully!");
+    }
+
+    function resetAdminPromptsToDefault() {
+      if (confirm("Are you sure you want to reset all prompt templates to defaults? Your API key will not be cleared.")) {
+        document.getElementById('admin-resume-prompt').value = defaultResumePrompt;
+        document.getElementById('admin-portfolio-prompt').value = defaultPortfolioPrompt;
+        localStorage.setItem('vlu_admin_resume_prompt', defaultResumePrompt);
+        localStorage.setItem('vlu_admin_portfolio_prompt', defaultPortfolioPrompt);
+        alert("Prompt templates reset to defaults.");
+      }
+    }
+
+    function updateApiKeyStatus() {
+      const apiKey = localStorage.getItem('vlu_gemini_api_key') || '';
+      const dot = document.getElementById('apiKeyStatusDot');
+      const text = document.getElementById('apiKeyStatusText');
+
+      if (apiKey) {
+        dot.className = "h-2 w-2 rounded-full bg-emerald-500 animate-pulse";
+        text.className = "text-[10px] uppercase font-bold tracking-wider text-emerald-400";
+        text.innerText = "Real AI Mode Active";
+      } else {
+        dot.className = "h-2 w-2 rounded-full bg-slate-500";
+        text.className = "text-[10px] uppercase font-bold tracking-wider text-slate-500";
+        text.innerText = "Simulated Mode Active";
+      }
+    }
+
+
     // Run application on start
     window.addEventListener('DOMContentLoaded', () => {
       initDatabase();
       loadTemplateList();
+      loadAdminPrompts();
     });
 
   </script>
